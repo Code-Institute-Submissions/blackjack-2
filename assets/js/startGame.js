@@ -12,6 +12,7 @@ function startGame() {
             this.type = type;
             this.image = image_url;
         }
+        
         let cardValue = 1;
         for (let i = 1; i < 14; i++) {
             if (i > 10){
@@ -28,7 +29,7 @@ function startGame() {
                     fullDeck.push(new Card(cardValue, "clubs", `assets/img/cards/${i}C.jpg`));
                 }
             }
-            cardValue = i;
+            cardValue = i+1;
         }
         console.log(fullDeck);
         // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
@@ -71,6 +72,10 @@ function startGame() {
     } else {
         document.getElementById("options-notification").innerHTML = 'Deck already created. Play now!';
     }
+
+    function newFunction() {
+        debugger;
+    }
 }
 
 
@@ -89,11 +94,20 @@ function hit(deck) {
 
 }
 
+
+// this function is used to calculate the current hand
 function calculateScore(score) {
     let totalScore = 0;
     for (let i = 0; i < score.length; i++) {
-        
+            
         totalScore += score[i].value;
+
+        // if one of the cards is an Ace it can be either 1 or 11. This will recalculate the score if the higher score would be less than 22
+        if(score[i].value == 1 && totalScore+10 < 22) {
+            totalScore += 10;
+        }
     }
+
+
     return totalScore;
 }
