@@ -1,0 +1,36 @@
+#testHTML {
+    height: 100px;
+    max-width: 100px;
+    background-color: beige;
+}
+
+#game-area {
+    height: 100vh;
+}
+
+#side-menu, #play-area {
+    border: 1px solid black;
+    background-color: green;
+}
+
+.dealer-area {
+    border: 1px solid black;
+    height: 33%;
+}
+
+.human-cards, .computer-cards {
+    border: 1px dashed gold;
+}
+
+.options-area {
+    text-align: center;
+}
+
+#human-score, #computer-score {
+    font-size: large;
+}
+
+.score-display {
+    font-size: large;
+    text-align: center;
+}
