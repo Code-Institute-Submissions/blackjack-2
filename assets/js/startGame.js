@@ -75,6 +75,21 @@ function startGame() {
     }
 }
 
+function resetGame() {
+    deckReady = false;
+    fullDeck = [];
+
+    for (let i = 0; i < playerHand.length; i++) {
+        document.getElementById(`human-card-${i + 1}`).innerHTML = "";
+        document.getElementById(`computer-card-${i + 1}`).innerHTML = "";
+    }
+    playerScore = 0;
+    document.getElementById("human-score").innerText = "";
+    computerScore = 0;
+    playerHand = [];
+    computerHand = [];
+}
+
 
 function hit(deck) {
     if (deck.length == 0) {
@@ -94,31 +109,16 @@ function hit(deck) {
 }
 
 
-// this function is used to calculate the current hand
-function calculateScore(score) {
-    let totalScore = 0;
-    for (let i = 0; i < score.length; i++) {
 
-        totalScore += score[i].value;
-
-        // if one of the cards is an Ace it can be either 1 or 11. This will recalculate the score if the higher score would be less than 22
-        if (score[i].value == 1 && totalScore + 10 < 22) {
-            totalScore += 10;
-        }
-    }
-
-
-    return totalScore;
-}
 
 function displayCards(playerHand, computerHand, player) {
     if (player == "human") {
 
-        document.getElementById("computer-card-1").innerHTML = `<img src="assets/img/cards/blue_back.jpg" alt="blue card back" id="computer-card-played-1" width="100%" height="100%">`;
-        document.getElementById("computer-card-2").innerHTML = `<img src="${computerHand[1].image}" alt="${computerHand[1].value} + ' ' + ${computerHand[1].type}" id="computer-card-played-2" width="100%" height="100%">`;
+        document.getElementById("computer-card-1").innerHTML = `<img src="assets/img/cards/blue_back.jpg" alt="blue card back" id="computer-card-played-1" width="80%" height="80%">`;
+        document.getElementById("computer-card-2").innerHTML = `<img src="${computerHand[1].image}" alt="${computerHand[1].value} + ' ' + ${computerHand[1].type}" id="computer-card-played-2" width="80%" height="80%">`;
 
         for (let i = 0; i < playerHand.length; i++) {
-            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="100%" height="100%">`;
+            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="80%" height="80%">`;
         }
         playerScore = calculateScore(playerHand);
         document.getElementById("human-score").innerText = playerScore;
@@ -126,12 +126,12 @@ function displayCards(playerHand, computerHand, player) {
     } else {
 
         for (let i = 0; i < playerHand.length; i++) {
-            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="100%" height="100%">`;
+            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="80%" height="80%">`;
 
         }
 
         for (let i = 0; i < computerHand.length; i++) {
-            document.getElementById(`computer-card-${i + 1}`).innerHTML = `<img src="${computerHand[i].image}" alt="${computerHand[i].value} + ' ' + ${computerHand[i].type}" id="computer-card-played-2" width="100%" height="100%">`;
+            document.getElementById(`computer-card-${i + 1}`).innerHTML = `<img src="${computerHand[i].image}" alt="${computerHand[i].value} + ' ' + ${computerHand[i].type}" id="computer-card-played-2" width="80%" height="80%">`;
 
         }
     }

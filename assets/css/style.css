@@ -20,6 +20,9 @@
 
 .human-cards, .computer-cards {
     border: 1px dashed gold;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .options-area {
