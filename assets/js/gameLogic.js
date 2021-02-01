@@ -5,6 +5,10 @@ let player = "human";
 let computerHand = [];
 let playerHand = [];
 let gameStop = false;
+let playerMoney = 100;
+let computerMoney = 100; 
+
+let gameWinCounter = [0,0];
 
 
 const hitButton = document.getElementById("hit-button");
@@ -32,7 +36,7 @@ startButton.addEventListener("click", function() {
 hitButton.addEventListener("click", hit);
 
 stayButton.addEventListener("click", function() {
-    debugger;
+    
     if (gameStop) {
         return;
     }

@@ -17,22 +17,33 @@
         <div class="container-fluid">
             <div class="row" id="game-area">
                 <div class="col-12 col-md-3" id="side-menu">
-                
-                        <div class="row menu-buttons">
-                            <div class="col-12 game-buttons">
-                                <button type="button" class="btn btn-primary" id="start-button">Start new game</button>
-                                
-                            </div>
-                            <div class="col-12">
-                                <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
-                                <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
-                            </div>
+                    <div class="row">
+                        <div class="col score-bets">
+                            <p>Computer Score</p>
+                            <p id="computer-game-score"></p>
                         </div>
-         
+                    </div>
+                    <div class="row menu-buttons">
+                        <div class="col-12 game-buttons">
+                            <button type="button" class="btn btn-primary" id="start-button">Start new game</button>
+
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
+                            <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col score-bets">
+                            <p>Player Score</p>
+                            <p id="player-game-score"></p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-12 col-md-9" id="play-area">
                     <div class="row dealer-area" id="computer-player">
-                        
+
                         <div class="col computer-cards" id="computer-card-1"></div>
                         <div class="col computer-cards" id="computer-card-2"></div>
                         <div class="col computer-cards" id="computer-card-3"></div>
