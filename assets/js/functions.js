@@ -58,12 +58,16 @@ function calculateScore(score) {
         // if one of the cards is an Ace it can be either 1 or 11. This will recalculate the score if the higher score would be less than 22
         if (score[i].value == 1 && totalScore + 10 < 22) {
             totalScore += 10;
-        }
-    }
+        } 
+    } 
 
-    if (totalScore > 21) {
-        notificationArea.innerHTML = "Your score is over 21. You lose!";
-    }
+    if (totalScore > 21 && player == "human") {
+        notificationArea.innerHTML = "Your score is over 21. Bust!";
+        gameStop = true;
+    } else if (totalScore > 21 && player == "computer") {
+        notificationArea.innerHTML = "Computer score is over 21. Player Wins!"
+        gameStop = true;
+    } 
 
 
     return totalScore;
@@ -105,20 +109,40 @@ function resetGame() {
     computerScore = 0;
     playerHand = [];
     computerHand = [];
+    gameStop = false;
 }
 
 function computerTurn() {
-    while (computerScore < 21) {
-        if(computerScore < 17) {
+    while (computerScore < 17) {
             let cardNumber = Math.floor((Math.random() * fullDeck.length));
             computerHand.push(fullDeck[cardNumber]);
             fullDeck.splice(cardNumber, 1);
             computerScore = calculateScore(computerHand);
             displayCards(playerHand, computerHand, player);
-        } else {
-            
-            return;
         }
+
+        endOfPlay();        
+
+        return;
         
     }
-}
+
+    function endOfPlay() {
+        if (playerHand.length == 2 || computerHand.length == 2) {
+            if ((playerHand[0].value == 1 && playerHand[1].value == 10) || (playerHand[0].value == 1 && playerHand[1].value == 10)) {
+                notificationArea.innerHTML = "Player has Blackjack!";
+            } else if ((computerHand[0].value == 1 && computerHand[1].value == 10) || (computerHand[0].value == 1 && computerHand[1].value == 10)) {
+                notificationArea.innerHTML = "Computer has Blackjack";
+            }
+        }
+        
+        if (playerScore > computerScore || computerScore > 21) {
+            notificationArea.innerHTML = "Player wins!";
+        } else if (playerScore == computerScore) {
+            notificationArea.innerHTML = "Draw";
+        } else {
+            notificationArea.innerHTML = "Computer wins!";
+        }
+
+        gameStop = true;
+    }

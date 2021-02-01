@@ -4,6 +4,7 @@ let playerScore, computerScore = 0;
 let player = "human";
 let computerHand = [];
 let playerHand = [];
+let gameStop = false;
 
 
 const hitButton = document.getElementById("hit-button");
@@ -31,6 +32,10 @@ startButton.addEventListener("click", function() {
 hitButton.addEventListener("click", hit);
 
 stayButton.addEventListener("click", function() {
+    debugger;
+    if (gameStop) {
+        return;
+    }
     player = "computer";
     displayCards(playerHand, computerHand, player);
     computerTurn();
@@ -57,9 +62,9 @@ function startGame() {
 
 
 function hit() {
-    
-    
-    if (fullDeck.length == 0) {
+    if (gameStop) {
+        return;
+    } else if (fullDeck.length == 0) {
         notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
         deckReady = false;
         return;
@@ -74,8 +79,9 @@ function hit() {
     
         fullDeck.splice(cardNumber, 1);
         playerScore = calculateScore(playerHand);
-        displayCards(playerHand, computerHand, player);
         calculateWin();
+        displayCards(playerHand, computerHand, player);
+        
    }
     
     
