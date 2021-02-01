@@ -21,9 +21,9 @@ function createDeck() {
 }
 
 function dealInitialCards() {
-    for (let i = 0; i < 4; i++) {
+    for (let initialCard = 0; initialCard < 4; initialCard++) {
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
-        if (i < 2) {
+        if (initialCard < 2) {
             computerHand.push(fullDeck[cardNumber]);
         } else {
             playerHand.push(fullDeck[cardNumber]);
@@ -81,3 +81,5 @@ function calculateWin() {
     return winPercentage;
 
 }
+
+

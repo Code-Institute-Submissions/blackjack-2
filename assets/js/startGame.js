@@ -9,6 +9,7 @@ let playerHand = [];
 const hitButton = document.getElementById("hit-button");
 const startButton = document.getElementById("start-button");
 const notificationArea = document.getElementById("options-notification");
+const stayButton = document.getElementById("stay-button");
 
 class Card {
     constructor(value, type, image_url) {
@@ -47,6 +48,11 @@ function startGame() {
 
 hitButton.addEventListener("click", hit);
 
+stayButton.addEventListener("click", function() {
+    player = "computer";
+    displayCards(playerHand, computerHand, player);
+});
+
 function hit() {
     if (fullDeck.length == 0) {
         notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
@@ -55,6 +61,7 @@ function hit() {
     } else if (playerScore > 21) {
         
         return;
+
     } else {
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
         playerHand.push(fullDeck[cardNumber]);
@@ -84,12 +91,14 @@ function displayCards(playerHand, computerHand, player) {
         }
         playerScore = calculateScore(playerHand);
         document.getElementById("human-score").innerText = playerScore;
+        document.getElementById("computer-score").innerHTML = "";
 
     } else {
 
         for (let i = 0; i < playerHand.length; i++) {
             document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="80%" height="80%">`;
-
+            computerScore = calculateScore(computerHand);
+            document.getElementById("computer-score").innerHTML = computerScore;
         }
 
         for (let i = 0; i < computerHand.length; i++) {
@@ -102,6 +111,7 @@ function displayCards(playerHand, computerHand, player) {
 function resetGame() {
 
     deckReady = false;
+    player = "human";
     fullDeck = [];
 
     for (let i = 0; i < playerHand.length; i++) {
