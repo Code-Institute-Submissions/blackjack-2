@@ -20,6 +20,8 @@ function createDeck() {
     }
 }
 
+
+
 function dealInitialCards() {
     for (let initialCard = 0; initialCard < 4; initialCard++) {
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
@@ -57,10 +59,10 @@ function calculateScore(score) {
         if (score[i].value == 1 && totalScore + 10 < 22) {
             totalScore += 10;
         }
-    } 
-    
+    }
+
     if (totalScore > 21) {
-        notificationArea.innerHTML = "Your score is over 21. You lose!"
+        notificationArea.innerHTML = "Your score is over 21. You lose!";
     }
 
 
@@ -68,18 +70,55 @@ function calculateScore(score) {
 }
 
 function calculateWin() {
-     let scoreRemainder = 21 - playerScore; 
-    let smallerCards = 0; 
+    let scoreRemainder = 21 - playerScore;
+    let smallerCards = 0;
 
-     for (let cardsRemaining = 0; cardsRemaining < fullDeck.length; cardsRemaining++) {
-         if (fullDeck[cardsRemaining].value <= scoreRemainder) {
+    for (let cardsRemaining = 0; cardsRemaining < fullDeck.length; cardsRemaining++) {
+        if (fullDeck[cardsRemaining].value <= scoreRemainder) {
             smallerCards++;
-         }
-     }
-    let winPercentage = Math.round((smallerCards/fullDeck.length)*100);
+        }
+    }
+    let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
     notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
     return winPercentage;
 
 }
 
+function resetGame() {
 
+    deckReady = false;
+    player = "human";
+    fullDeck = [];
+    let cardsToClear = 0;
+    if (playerHand.length > computerHand.length) {
+        cardsToClear = playerHand.length;
+    } else {
+        cardsToClear = computerHand.length;
+    }
+
+    for (let i = 0; i < cardsToClear; i++) {
+        document.getElementById(`human-card-${i + 1}`).innerHTML = "";
+        document.getElementById(`computer-card-${i + 1}`).innerHTML = "";
+    }
+    playerScore = 0;
+    document.getElementById("human-score").innerText = "";
+    computerScore = 0;
+    playerHand = [];
+    computerHand = [];
+}
+
+function computerTurn() {
+    while (computerScore < 21) {
+        if(computerScore < 17) {
+            let cardNumber = Math.floor((Math.random() * fullDeck.length));
+            computerHand.push(fullDeck[cardNumber]);
+            fullDeck.splice(cardNumber, 1);
+            computerScore = calculateScore(computerHand);
+            displayCards(playerHand, computerHand, player);
+        } else {
+            
+            return;
+        }
+        
+    }
+}

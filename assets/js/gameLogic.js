@@ -28,6 +28,14 @@ startButton.addEventListener("click", function() {
     }
 });
 
+hitButton.addEventListener("click", hit);
+
+stayButton.addEventListener("click", function() {
+    player = "computer";
+    displayCards(playerHand, computerHand, player);
+    computerTurn();
+});
+
 
 // Function startGame creates a deck of 52 cards if one is not created already. 
 // It uses the class "Card" to create cards as objects dynamically
@@ -46,14 +54,11 @@ function startGame() {
 
 // document.getElementById("hit-button").addEventListener("click", function(fullDeck) {hit(fullDeck)});
 
-hitButton.addEventListener("click", hit);
 
-stayButton.addEventListener("click", function() {
-    player = "computer";
-    displayCards(playerHand, computerHand, player);
-});
 
 function hit() {
+    
+    
     if (fullDeck.length == 0) {
         notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
         deckReady = false;
@@ -71,7 +76,7 @@ function hit() {
         playerScore = calculateScore(playerHand);
         displayCards(playerHand, computerHand, player);
         calculateWin();
-    }
+   }
     
     
 }
@@ -108,19 +113,3 @@ function displayCards(playerHand, computerHand, player) {
     }
 }
 
-function resetGame() {
-
-    deckReady = false;
-    player = "human";
-    fullDeck = [];
-
-    for (let i = 0; i < playerHand.length; i++) {
-        document.getElementById(`human-card-${i + 1}`).innerHTML = "";
-        document.getElementById(`computer-card-${i + 1}`).innerHTML = "";
-    }
-    playerScore = 0;
-    document.getElementById("human-score").innerText = "";
-    computerScore = 0;
-    playerHand = [];
-    computerHand = [];
-}
