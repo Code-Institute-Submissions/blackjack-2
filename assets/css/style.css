@@ -37,3 +37,13 @@
     font-size: large;
     text-align: center;
 }
+
+.menu-buttons {
+    margin-top: 50%;
+    text-align: center;
+}
+
+.btn {
+    margin: 10px;
+    width: 150px;
+}

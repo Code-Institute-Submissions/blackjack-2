@@ -6,107 +6,69 @@ let computerHand = [];
 let playerHand = [];
 
 
+const hitButton = document.getElementById("hit-button");
+const startButton = document.getElementById("start-button");
+const notificationArea = document.getElementById("options-notification");
 
-// When player starts game, a deck of cards is created
-function startGame() {
-    if (deckReady == false) {
-        function Card(value, type, image_url) {
-            this.value = value;
-            this.type = type;
-            this.image = image_url;
-        }
+class Card {
+    constructor(value, type, image_url) {
+        this.value = value;
+        this.type = type;
+        this.image = image_url;
+    }
+}
 
-        let cardValue = 1;
-        for (let i = 1; i < 14; i++) {
-            if (i > 10) {
-                cardValue = 10;
-            }
-            for (let j = 0; j < 4; j++) {
-                if (j == 0) {
-                    fullDeck.push(new Card(cardValue, "diamonds", `assets/img/cards/${i}D.jpg`));
-                } else if (j == 1) {
-                    fullDeck.push(new Card(cardValue, "hearts", `assets/img/cards/${i}H.jpg`));
-                } else if (j == 2) {
-                    fullDeck.push(new Card(cardValue, "spades", `assets/img/cards/${i}S.jpg`));
-                } else {
-                    fullDeck.push(new Card(cardValue, "clubs", `assets/img/cards/${i}C.jpg`));
-                }
-            }
-            cardValue = i + 1;
-        }
-
-        // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
-
-
-        for (let i = 0; i < 4; i++) {
-            let cardNumber = Math.floor((Math.random() * fullDeck.length));
-            if (i < 2) {
-                computerHand.push(fullDeck[cardNumber]);
-            } else {
-                playerHand.push(fullDeck[cardNumber]);
-            }
-            fullDeck.splice(cardNumber, 1);
-
-        }
-
-
-
-        document.getElementById("options-notification").innerHTML = '';
-
-        // computer gets two cards and human gets two cards at the beginning of the game
-
-        computerScore = calculateScore(computerHand);
-        playerScore = calculateScore(playerHand);
-
-
-        displayCards(playerHand, computerHand, player);
-
-
-        // player score is displayed, but computer score is hidden for now
- 
-
-        deckReady = true;
+startButton.addEventListener("click", function() {
+    if (!deckReady) {
+        startGame();
     } else {
-        document.getElementById("options-notification").innerHTML = 'Deck already created. Play now!';
+        resetGame();
+        startGame();
     }
-
-    function newFunction() {
-        debugger;
-    }
-}
-
-function resetGame() {
-    deckReady = false;
-    fullDeck = [];
-
-    for (let i = 0; i < playerHand.length; i++) {
-        document.getElementById(`human-card-${i + 1}`).innerHTML = "";
-        document.getElementById(`computer-card-${i + 1}`).innerHTML = "";
-    }
-    playerScore = 0;
-    document.getElementById("human-score").innerText = "";
-    computerScore = 0;
-    playerHand = [];
-    computerHand = [];
-}
+});
 
 
-function hit(deck) {
-    if (deck.length == 0) {
-        document.getElementById("options-notification").innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
-        deckReady = false;
-        return;
-    }
-    let cardNumber = Math.floor((Math.random() * deck.length));
-    playerHand.push(deck[cardNumber]);
+// Function startGame creates a deck of 52 cards if one is not created already. 
+// It uses the class "Card" to create cards as objects dynamically
+function startGame() {
+
+    // if a deck of cards is not already initialized, a new one will be created. 
+    // if a deck of cards is already in play, the user will be informed that the deck is created and that they can start playing. 
+    
+
+        createDeck();
+        // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
+        dealInitialCards();
 
     
-    deck.splice(cardNumber, 1);
-    displayCards(playerHand, computerHand, player);
-    playerScore = calculateScore(playerHand);
-
-
 }
+
+// document.getElementById("hit-button").addEventListener("click", function(fullDeck) {hit(fullDeck)});
+
+hitButton.addEventListener("click", hit);
+
+function hit() {
+    if (fullDeck.length == 0) {
+        notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
+        deckReady = false;
+        return;
+    } else if (playerScore > 21) {
+        
+        return;
+    } else {
+        let cardNumber = Math.floor((Math.random() * fullDeck.length));
+        playerHand.push(fullDeck[cardNumber]);
+    
+    
+        fullDeck.splice(cardNumber, 1);
+        playerScore = calculateScore(playerHand);
+        displayCards(playerHand, computerHand, player);
+        calculateWin();
+    }
+    
+    
+}
+
 
 
 
@@ -135,4 +97,20 @@ function displayCards(playerHand, computerHand, player) {
 
         }
     }
+}
+
+function resetGame() {
+
+    deckReady = false;
+    fullDeck = [];
+
+    for (let i = 0; i < playerHand.length; i++) {
+        document.getElementById(`human-card-${i + 1}`).innerHTML = "";
+        document.getElementById(`computer-card-${i + 1}`).innerHTML = "";
+    }
+    playerScore = 0;
+    document.getElementById("human-score").innerText = "";
+    computerScore = 0;
+    playerHand = [];
+    computerHand = [];
 }
