@@ -5,12 +5,6 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-#testHTML {
-    height: 100px;
-    max-width: 100px;
-    background-color: beige;
-}
-
 #game-area {
     height: 100vh;
 }
@@ -21,7 +15,7 @@ body {
 
 .dealer-area {
     border: 1px solid black;
-    height: 33%;
+    height: 33vh;
 }
 
 #quick-bets li{
@@ -31,9 +25,10 @@ body {
 }
 
 .human-cards, .computer-cards {
-    border: 1px dashed gold;
     text-align: center;
-    margin: auto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .options-area {
@@ -61,8 +56,8 @@ body {
 
 img {
     display: block;
-    max-width: 90%;
-    height: auto;
+    max-height: 100%;
+    width: auto;
     padding: 0px;
     margin: auto;
 }

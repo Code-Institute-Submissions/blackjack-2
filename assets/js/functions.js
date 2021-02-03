@@ -99,11 +99,9 @@ function resetGame() {
     } else {
         cardsToClear = computerHand.length;
     }
-
-    for (let i = 0; i < cardsToClear; i++) {
-        document.getElementById(`human-card-${i + 1}`).innerHTML = "";
-        document.getElementById(`computer-card-${i + 1}`).innerHTML = "";
-    }
+    computerCardArea.innerHTML = "";
+    playerCardArea.innerHTML = "";
+ 
     playerScore = 0;
     document.getElementById("human-score").innerText = "";
     computerScore = 0;
@@ -148,7 +146,7 @@ function endOfPlay() {
 }
 
 function playerWins () {
-    notificationArea.innerHTML = "Player wins!";
+    notificationArea.innerHTML = `Player wins! You won $${betAmount*2}`;
     gameWinCounter[0]++;
     document.getElementById("player-game-score").innerText = gameWinCounter[0];
     playerMoney = playerMoney + (betAmount * 2);
@@ -167,7 +165,7 @@ function gameIsDraw() {
 }
 
 function computerWins() {
-    notificationArea.innerHTML = "Computer wins!";
+    notificationArea.innerHTML = `Computer wins! You lost $${betAmount*2}`;
     gameWinCounter[1]++;
     document.getElementById("computer-game-score").innerText = gameWinCounter[1];
     computerMoney = computerMoney + (betAmount * 2);
