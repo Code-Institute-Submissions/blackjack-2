@@ -60,15 +60,6 @@ function calculateScore(score) {
         }
     }
 
-    if (totalScore > 21 && player == "human") {
-        notificationArea.innerHTML = "Your score is over 21. Bust!";
-        gameStop = true;
-    } else if (totalScore > 21 && player == "computer") {
-        notificationArea.innerHTML = "Computer score is over 21. Player Wins!"
-        gameStop = true;
-    }
-
-
     return totalScore;
 }
 
@@ -85,7 +76,8 @@ function calculateWin() {
     }
     let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
     notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
-    return winPercentage;
+   
+        return winPercentage;
 
 }
 
@@ -129,16 +121,8 @@ function computerTurn() {
 }
 
 function endOfPlay() {
-    
-    // if (playerHand.length == 2 || computerHand.length == 2) {
-    //     if ((playerHand[0].value == 1 && playerHand[1].value == 10) || (playerHand[0].value == 1 && playerHand[1].value == 10)) {
-    //         blackjackScore.player = 1;
-    //     } else if ((computerHand[0].value == 1 && computerHand[1].value == 10) || (computerHand[0].value == 1 && computerHand[1].value == 10)) {
-    //         blackjackScore.computer = 1;
-    //     }
-    // }
-
-    if (playerScore > computerScore || computerScore > 21) {
+    debugger;
+    if ((playerScore > computerScore && playerScore < 22) || computerScore > 21) {
         notificationArea.innerHTML = "Player wins!";
         gameWinCounter[0]++;
         document.getElementById("player-game-score").innerText = gameWinCounter[0];
@@ -149,6 +133,6 @@ function endOfPlay() {
         gameWinCounter[1]++;
         document.getElementById("computer-game-score").innerText = gameWinCounter[1];
     }
-    console.log(gameWinCounter);
+   
     gameStop = true;
 }

@@ -83,9 +83,11 @@ function hit() {
     
         fullDeck.splice(cardNumber, 1);
         playerScore = calculateScore(playerHand);
-        calculateWin();
         displayCards(playerHand, computerHand, player);
-        
+        calculateWin();
+        if (playerScore > 21) {
+            endOfPlay();
+        }
    }
     
     
