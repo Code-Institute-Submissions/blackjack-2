@@ -131,33 +131,47 @@ function computerTurn() {
 
 function endOfPlay() {
     if ((playerScore > computerScore && playerScore < 22) || computerScore > 21) {
-        notificationArea.innerHTML = "Player wins!";
-        gameWinCounter[0]++;
-        document.getElementById("player-game-score").innerText = gameWinCounter[0];
-        playerMoney = playerMoney + (betAmount * 2);
-        console.log(playerMoney);
-        console.log(computerMoney);
-        console.log("player wins");
+       playerWins();
 
     } else if (playerScore == computerScore) {
-        notificationArea.innerHTML = "Draw";
-        console.log(betAmount);
-        playerMoney = (playerMoney + betAmount);
-        computerMoney = (computerMoney + betAmount);
-        console.log(playerMoney);
-        console.log(computerMoney);
+       gameIsDraw();
     } else {
-        notificationArea.innerHTML = "Computer wins!";
-        gameWinCounter[1]++;
-        document.getElementById("computer-game-score").innerText = gameWinCounter[1];
-        computerMoney = computerMoney + (betAmount * 2);
-        console.log(playerMoney);
-        console.log(computerMoney);
-        console.log("computer wins");
+        computerWins();
     }
+
     document.getElementById("computer-money").innerHTML = computerMoney;
     document.getElementById("player-money").innerHTML = playerMoney;
     gameStop = true;
     betplaced = false;
     betAmount = 0;
+    betNotificationArea.innerHTML = "";
+}
+
+function playerWins () {
+    notificationArea.innerHTML = "Player wins!";
+    gameWinCounter[0]++;
+    document.getElementById("player-game-score").innerText = gameWinCounter[0];
+    playerMoney = playerMoney + (betAmount * 2);
+    console.log(playerMoney);
+    console.log(computerMoney);
+    console.log("player wins");
+}
+
+function gameIsDraw() {
+    notificationArea.innerHTML = "Draw";
+    console.log(betAmount);
+    playerMoney = (playerMoney + betAmount);
+    computerMoney = (computerMoney + betAmount);
+    console.log(playerMoney);
+    console.log(computerMoney);
+}
+
+function computerWins() {
+    notificationArea.innerHTML = "Computer wins!";
+    gameWinCounter[1]++;
+    document.getElementById("computer-game-score").innerText = gameWinCounter[1];
+    computerMoney = computerMoney + (betAmount * 2);
+    console.log(playerMoney);
+    console.log(computerMoney);
+    console.log("computer wins");
 }

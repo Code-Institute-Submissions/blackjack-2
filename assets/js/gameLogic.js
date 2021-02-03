@@ -5,11 +5,11 @@ let computerHand = [];
 let playerHand = [];
 let gameStop = false;
 let playerMoney = 100;
-let computerMoney = 100; 
+let computerMoney = 100;
 let betplaced = false;
 let betAmount = 0;
 
-let gameWinCounter = [0,0];
+let gameWinCounter = [0, 0];
 
 
 const hitButton = document.getElementById("hit-button");
@@ -31,29 +31,72 @@ class Card {
 document.getElementById("computer-money").innerHTML = computerMoney;
 document.getElementById("player-money").innerHTML = playerMoney;
 
-betButton.addEventListener("click", function() {
-    if(document.getElementById("bet").value !== '') {
-        betAmount = betAmount + placeBet(document.getElementById("bet").value);
-        betplaced = true;
-    } else {
+betButton.addEventListener("click", function () {
+    if (document.getElementById("bet").value == '') {
+
         notificationArea.innerHTML = "Enter the amount you would like to bet";
+
+    } else {
+
+        betAmount = parseInt(betAmount + placeBet(document.getElementById("bet").value));
+        console.log(betAmount);
+        if(betAmount == 0) {
+            return;
+        } else {
+
+        betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
+        }
     }
- 
+
 });
 
-document.getElementById("bet5").addEventListener('click', function() {
+document.getElementById("bet5").addEventListener('click', function () {
     betAmount = betAmount + placeBet(5);
-    betplaced = true;
-    betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount*2}`;
-})
 
+    if(betAmount == 0) {
+        return;
+    } else {
 
-resetButton.addEventListener("click", function() {
+    betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
+    }
+});
+document.getElementById("bet10").addEventListener('click', function () {
+    betAmount = betAmount + placeBet(10);
+
+    if(betAmount == 0) {
+        return;
+    } else {
+
+    betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
+    }
+});
+document.getElementById("bet20").addEventListener('click', function () {
+    betAmount = betAmount + placeBet(20);
+
+    if(betAmount == 0) {
+        return;
+    } else {
+
+    betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
+    }
+});
+document.getElementById("bet50").addEventListener('click', function () {
+    betAmount = betAmount + placeBet(50);
+
+    if(betAmount == 0) {
+        return;
+    } else {
+
+    betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
+    }
+});
+
+resetButton.addEventListener("click", function () {
     resetGame();
     resetGameCounter();
 });
 
-startButton.addEventListener("click", function() {
+startButton.addEventListener("click", function () {
     if (!deckReady) {
         startGame();
     } else {
@@ -64,8 +107,8 @@ startButton.addEventListener("click", function() {
 
 hitButton.addEventListener("click", hit);
 
-stayButton.addEventListener("click", function() {
-    
+stayButton.addEventListener("click", function () {
+
     if (gameStop) {
         return;
     }
@@ -78,10 +121,10 @@ stayButton.addEventListener("click", function() {
 // Function startGame creates a deck of 52 cards if one is not created already. 
 // It uses the class "Card" to create cards as objects dynamically
 function startGame() {
-    if(betplaced) {
-    // if a deck of cards is not already initialized, a new one will be created. 
-    // if a deck of cards is already in play, the user will be informed that the deck is created and that they can start playing. 
-    
+    if (betplaced) {
+        // if a deck of cards is not already initialized, a new one will be created. 
+        // if a deck of cards is already in play, the user will be informed that the deck is created and that they can start playing. 
+
 
         createDeck();
         // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
@@ -89,18 +132,25 @@ function startGame() {
     } else {
         notificationArea.innerHTML = "Place your bet first";
     }
-    
+
 }
 
-function placeBet (money) {
-   
-        computerMoney = computerMoney-money;
+function placeBet(money) {
+    if (computerMoney - money < 0) {
+        betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
+        return 0;
+    } else if (playerMoney - money < 0) {
+        betNotificationArea.innerHTML = "You don't have sufficient money for this bet.";
+        return 0;
+    } else {
+        computerMoney = computerMoney - money;
         document.getElementById("computer-money").innerHTML = computerMoney;
-        playerMoney = playerMoney-money;
+        playerMoney = playerMoney - money;
         document.getElementById("player-money").innerHTML = playerMoney;
         document.getElementById("bet").value = '';
         betplaced = true;
         return money;
+    }
 }
 
 
@@ -112,17 +162,17 @@ function hit() {
         notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
         deckReady = false;
         return;
-     } 
+    }
     //else if (playerScore > 21) {
-        
+
     //     return;
 
     // } 
     else {
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
         playerHand.push(fullDeck[cardNumber]);
-    
-    
+
+
         fullDeck.splice(cardNumber, 1);
         playerScore = calculateScore(playerHand);
         displayCards(playerHand, computerHand, player);
@@ -130,9 +180,9 @@ function hit() {
         if (playerScore > 21) {
             endOfPlay();
         }
-   }
-    
-    
+    }
+
+
 }
 
 
