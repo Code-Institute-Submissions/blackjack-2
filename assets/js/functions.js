@@ -110,6 +110,7 @@ function resetGame() {
     playerHand = [];
     computerHand = [];
     gameStop = false;
+    
 
 }
 
@@ -134,19 +135,29 @@ function endOfPlay() {
         gameWinCounter[0]++;
         document.getElementById("player-game-score").innerText = gameWinCounter[0];
         playerMoney = playerMoney + (betAmount * 2);
+        console.log(playerMoney);
+        console.log(computerMoney);
+        console.log("player wins");
 
     } else if (playerScore == computerScore) {
         notificationArea.innerHTML = "Draw";
-        playerMoney = playerMoney + betAmount;
-        computerMoney = computerMoney + betAmount;
+        console.log(betAmount);
+        playerMoney = (playerMoney + betAmount);
+        computerMoney = (computerMoney + betAmount);
+        console.log(playerMoney);
+        console.log(computerMoney);
     } else {
         notificationArea.innerHTML = "Computer wins!";
         gameWinCounter[1]++;
         document.getElementById("computer-game-score").innerText = gameWinCounter[1];
         computerMoney = computerMoney + (betAmount * 2);
+        console.log(playerMoney);
+        console.log(computerMoney);
+        console.log("computer wins");
     }
     document.getElementById("computer-money").innerHTML = computerMoney;
     document.getElementById("player-money").innerHTML = playerMoney;
     gameStop = true;
     betplaced = false;
+    betAmount = 0;
 }

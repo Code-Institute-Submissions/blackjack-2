@@ -24,6 +24,11 @@ body {
     height: 33%;
 }
 
+#quick-bets li{
+    display: inline-block;
+    margin-right: 5px;
+}
+
 .human-cards, .computer-cards {
     border: 1px dashed gold;
     text-align: center;

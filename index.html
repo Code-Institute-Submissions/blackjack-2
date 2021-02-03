@@ -37,7 +37,12 @@
                         <div class="col score-bets">
                             Player Score: <span id="player-game-score"></span>
                             <p>Player money: <span id="player-money"></span></p>
-                            
+                            <ul id="quick-bets">
+                                <li id="bet5">5</li>
+                                <li id="bet10">10</li>
+                                <li id="bet20">20</li>
+                                <li id="bet50">50</li>
+                            </ul>
                                 <input type="text" id="bet" name="bet">
                                 <button class="btn btn-primary" id="bet-button">Bet</button>
                             
@@ -62,9 +67,8 @@
                         </div>
                         <div class="col-12 options-area">
 
-                            <div id="options-notification">
-
-                            </div>
+                            <div id="options-notification"></div>
+                            <div id="bet-notification"></div>
                         </div>
                         <div class="col-12 score-display">
                             Player Score: <span id="human-score"></span>

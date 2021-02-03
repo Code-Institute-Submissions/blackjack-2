@@ -1,13 +1,11 @@
 let fullDeck = [];
 let deckReady = false;
-let playerScore, computerScore = 0;
 let player = "human";
 let computerHand = [];
 let playerHand = [];
 let gameStop = false;
 let playerMoney = 100;
 let computerMoney = 100; 
-let bettotal = 0;
 let betplaced = false;
 let betAmount = 0;
 
@@ -20,6 +18,7 @@ const resetButton = document.getElementById("reset-button");
 const notificationArea = document.getElementById("options-notification");
 const stayButton = document.getElementById("stay-button");
 const betButton = document.getElementById("bet-button");
+const betNotificationArea = document.getElementById("bet-notification");
 
 class Card {
     constructor(value, type, image_url) {
@@ -34,13 +33,20 @@ document.getElementById("player-money").innerHTML = playerMoney;
 
 betButton.addEventListener("click", function() {
     if(document.getElementById("bet").value !== '') {
-        placeBet();
+        betAmount = betAmount + placeBet(document.getElementById("bet").value);
         betplaced = true;
     } else {
         notificationArea.innerHTML = "Enter the amount you would like to bet";
     }
  
 });
+
+document.getElementById("bet5").addEventListener('click', function() {
+    betAmount = betAmount + placeBet(5);
+    betplaced = true;
+    betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount*2}`;
+})
+
 
 resetButton.addEventListener("click", function() {
     resetGame();
@@ -86,15 +92,15 @@ function startGame() {
     
 }
 
-function placeBet () {
+function placeBet (money) {
    
-        betAmount = document.getElementById("bet").value;
-        computerMoney = computerMoney-betAmount;
+        computerMoney = computerMoney-money;
         document.getElementById("computer-money").innerHTML = computerMoney;
-        playerMoney = playerMoney-betAmount;
+        playerMoney = playerMoney-money;
         document.getElementById("player-money").innerHTML = playerMoney;
         document.getElementById("bet").value = '';
         betplaced = true;
+        return money;
 }
 
 
@@ -106,11 +112,13 @@ function hit() {
         notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
         deckReady = false;
         return;
-    } else if (playerScore > 21) {
+     } 
+    //else if (playerScore > 21) {
         
-        return;
+    //     return;
 
-    } else {
+    // } 
+    else {
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
         playerHand.push(fullDeck[cardNumber]);
     
