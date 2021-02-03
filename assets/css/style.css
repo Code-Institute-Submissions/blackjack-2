@@ -20,8 +20,17 @@ body {
 
 #quick-bets li{
     display: inline-block;
-    margin-right: 5px;
+    margin: auto 15px;
     cursor: pointer;
+    text-decoration: none;
+    border: 1px dashed gold;
+    border-radius: 10px;
+    font-weight: 800;
+    background-color: gold;
+}
+
+#hidden-zero {
+    color: gold;
 }
 
 .human-cards, .computer-cards {
@@ -31,7 +40,7 @@ body {
     height: 100%;
 }
 
-.score-bets {
+.center {
     text-align: center;
 }
 

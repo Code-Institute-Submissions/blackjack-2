@@ -18,36 +18,39 @@
             <div class="row" id="game-area">
                 <!-- <div class="col-12" id="side-menu"> -->
                     <!-- <div class="row"> -->
-                        <div class="col-12 score-bets">
+                        <div class="col-12 col-md-3 score-bets center">
                             Computer Score: <span id="computer-game-score"></span>
                             <p>Computer money: <span id="computer-money"></span></p>
                         </div>
                     <!-- </div> -->
                     <!-- <div class="row menu-buttons"> -->
-                        <div class="col-6 offset-3 game-buttons">
+                        <div class="col-6 col-md-3 game-buttons center">
                             <button type="button" class="btn btn-primary" id="start-button">Deal</button>
                             <button type="button" class="btn btn-primary" id="reset-button">New Game</button>
                         </div>
-                        <div class="col-6 offset-3">
+                        <div class="col-6 col-md-3 center">
                             <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
                             <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
                         </div>
                     <!-- </div> -->
                     <!-- <div class="row"> -->
-                        <div class="col-12 score-bets">
+                        <div class="col-12 col-md-3 score-bets center">
                             Player Score: <span id="player-game-score"></span>
                             <p>Player money: <span id="player-money"></span></p>
+                          
+                            
+                        </div>
+                        <div class="col-12 center">
+                            <p>Quick Bets</p>
                             <ul id="quick-bets">
-                                <li id="bet5">5</li>
-                                <li id="bet10">10</li>
-                                <li id="bet20">20</li>
-                                <li id="bet50">50</li>
+                                <li id="bet5"><span id="hidden-zero">0</span>5<span id="hidden-zero">0</span></li>
+                                <li id="bet10"><span id="hidden-zero">0</span>10<span id="hidden-zero">0</span></li>
+                                <li id="bet20"><span id="hidden-zero">0</span>20<span id="hidden-zero">0</span></li>
+                                <li id="bet50"><span id="hidden-zero">0</span>50<span id="hidden-zero">0</span></li>
                             </ul>
                                 <input type="text" id="bet" name="bet">
                                 <button class="btn btn-primary" id="bet-button">Bet</button>
-                            
-                            
-                        </div>
+                            </div>  
                     <!-- </div> -->
 
                 <!-- </div> -->
