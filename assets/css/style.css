@@ -27,6 +27,7 @@ body {
 #quick-bets li{
     display: inline-block;
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .human-cards, .computer-cards {
