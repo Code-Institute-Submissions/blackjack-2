@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+    background-color: green;
+    font-family: 'Lato', sans-serif;
+}
+
 #testHTML {
     height: 100px;
     max-width: 100px;
@@ -10,7 +17,6 @@
 
 #side-menu, #play-area {
     border: 1px solid black;
-    background-color: green;
 }
 
 .dealer-area {
@@ -21,8 +27,7 @@
 .human-cards, .computer-cards {
     border: 1px dashed gold;
     text-align: center;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
 }
 
 .options-area {
@@ -46,4 +51,12 @@
 .btn {
     margin: 10px;
     width: 150px;
+}
+
+img {
+    display: block;
+    max-width: 90%;
+    height: auto;
+    padding: 0px;
+    margin: auto;
 }

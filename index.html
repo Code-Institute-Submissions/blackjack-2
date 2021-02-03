@@ -19,14 +19,14 @@
                 <div class="col-12 col-md-3" id="side-menu">
                     <div class="row">
                         <div class="col score-bets">
-                            <p>Computer Score</p>
-                            <p id="computer-game-score"></p>
+                            Computer Score: <span id="computer-game-score"></span>
+                            <p>Computer money: <span id="computer-money"></span></p>
                         </div>
                     </div>
                     <div class="row menu-buttons">
                         <div class="col-12 game-buttons">
-                            <button type="button" class="btn btn-primary" id="start-button">Start new game</button>
-
+                            <button type="button" class="btn btn-primary" id="start-button">Deal</button>
+                            <button type="button" class="btn btn-primary" id="reset-button">Reset Score</button>
                         </div>
                         <div class="col-12">
                             <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
@@ -35,8 +35,13 @@
                     </div>
                     <div class="row">
                         <div class="col score-bets">
-                            <p>Player Score</p>
-                            <p id="player-game-score"></p>
+                            Player Score: <span id="player-game-score"></span>
+                            <p>Player money: <span id="player-money"></span></p>
+                            
+                                <input type="text" id="bet" name="bet">
+                                <button class="btn btn-primary" id="bet-button">Bet</button>
+                            
+                            
                         </div>
                     </div>
 
@@ -86,13 +91,7 @@
 
 
 
-    <!-- <div id="play-area">
-        <img id="card-image" src="assets/img/cards/blue_back.jpg" alt="blue card back" width="300" height="459">
-        <div id="card-value"></div>
-    </div>
-    
-    <button type="button" id="test-button" onclick="startGame()">Start new game</button>
-    <button type="button" id="hit-card" onclick="hit(fullDeck)">Hit</button> -->
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>

@@ -7,14 +7,19 @@ let playerHand = [];
 let gameStop = false;
 let playerMoney = 100;
 let computerMoney = 100; 
+let bettotal = 0;
+let betplaced = false;
+let betAmount = 0;
 
 let gameWinCounter = [0,0];
 
 
 const hitButton = document.getElementById("hit-button");
 const startButton = document.getElementById("start-button");
+const resetButton = document.getElementById("reset-button");
 const notificationArea = document.getElementById("options-notification");
 const stayButton = document.getElementById("stay-button");
+const betButton = document.getElementById("bet-button");
 
 class Card {
     constructor(value, type, image_url) {
@@ -23,6 +28,24 @@ class Card {
         this.image = image_url;
     }
 }
+
+document.getElementById("computer-money").innerHTML = computerMoney;
+document.getElementById("player-money").innerHTML = playerMoney;
+
+betButton.addEventListener("click", function() {
+    if(document.getElementById("bet").value !== '') {
+        placeBet();
+        betplaced = true;
+    } else {
+        notificationArea.innerHTML = "Enter the amount you would like to bet";
+    }
+ 
+});
+
+resetButton.addEventListener("click", function() {
+    resetGame();
+    resetGameCounter();
+});
 
 startButton.addEventListener("click", function() {
     if (!deckReady) {
@@ -49,7 +72,7 @@ stayButton.addEventListener("click", function() {
 // Function startGame creates a deck of 52 cards if one is not created already. 
 // It uses the class "Card" to create cards as objects dynamically
 function startGame() {
-
+    if(betplaced) {
     // if a deck of cards is not already initialized, a new one will be created. 
     // if a deck of cards is already in play, the user will be informed that the deck is created and that they can start playing. 
     
@@ -57,11 +80,22 @@ function startGame() {
         createDeck();
         // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
         dealInitialCards();
-
+    } else {
+        notificationArea.innerHTML = "Place your bet first";
+    }
     
 }
 
-// document.getElementById("hit-button").addEventListener("click", function(fullDeck) {hit(fullDeck)});
+function placeBet () {
+   
+        betAmount = document.getElementById("bet").value;
+        computerMoney = computerMoney-betAmount;
+        document.getElementById("computer-money").innerHTML = computerMoney;
+        playerMoney = playerMoney-betAmount;
+        document.getElementById("player-money").innerHTML = playerMoney;
+        document.getElementById("bet").value = '';
+        betplaced = true;
+}
 
 
 
@@ -100,11 +134,11 @@ function hit() {
 function displayCards(playerHand, computerHand, player) {
     if (player == "human") {
 
-        document.getElementById("computer-card-1").innerHTML = `<img src="assets/img/cards/blue_back.jpg" alt="blue card back" id="computer-card-played-1" width="80%" height="80%">`;
-        document.getElementById("computer-card-2").innerHTML = `<img src="${computerHand[1].image}" alt="${computerHand[1].value} + ' ' + ${computerHand[1].type}" id="computer-card-played-2" width="80%" height="80%">`;
+        document.getElementById("computer-card-1").innerHTML = `<img src="assets/img/cards/blue_back.jpg" alt="blue card back" id="computer-card-played-1">`;
+        document.getElementById("computer-card-2").innerHTML = `<img src="${computerHand[1].image}" alt="${computerHand[1].value} + ' ' + ${computerHand[1].type}" id="computer-card-played-2">`;
 
         for (let i = 0; i < playerHand.length; i++) {
-            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="80%" height="80%">`;
+            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}">`;
         }
         playerScore = calculateScore(playerHand);
         document.getElementById("human-score").innerText = playerScore;
@@ -113,13 +147,13 @@ function displayCards(playerHand, computerHand, player) {
     } else {
 
         for (let i = 0; i < playerHand.length; i++) {
-            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}" width="80%" height="80%">`;
+            document.getElementById(`human-card-${i + 1}`).innerHTML = `<img src="${playerHand[i].image}" alt="${playerHand[i].value} + ' ' + ${playerHand[i].type}" id="human-card-played-${i + 1}">`;
             computerScore = calculateScore(computerHand);
             document.getElementById("computer-score").innerHTML = computerScore;
         }
 
         for (let i = 0; i < computerHand.length; i++) {
-            document.getElementById(`computer-card-${i + 1}`).innerHTML = `<img src="${computerHand[i].image}" alt="${computerHand[i].value} + ' ' + ${computerHand[i].type}" id="computer-card-played-2" width="80%" height="80%">`;
+            document.getElementById(`computer-card-${i + 1}`).innerHTML = `<img src="${computerHand[i].image}" alt="${computerHand[i].value} + ' ' + ${computerHand[i].type}" id="computer-card-played-2">`;
 
         }
     }

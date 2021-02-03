@@ -63,7 +63,14 @@ function calculateScore(score) {
     return totalScore;
 }
 
-
+function resetGameCounter() {
+    gameWinCounter = [0, 0];
+    document.getElementById("player-game-score").innerText = "";
+    document.getElementById("computer-game-score").innerText = "";
+    document.getElementById("computer-money").innerHTML = 100;
+    document.getElementById("player-money").innerHTML = 100;
+    
+}
 
 function calculateWin() {
     let scoreRemainder = 21 - playerScore;
@@ -76,8 +83,8 @@ function calculateWin() {
     }
     let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
     notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
-   
-        return winPercentage;
+
+    return winPercentage;
 
 }
 
@@ -103,6 +110,7 @@ function resetGame() {
     playerHand = [];
     computerHand = [];
     gameStop = false;
+
 }
 
 function computerTurn() {
@@ -121,18 +129,24 @@ function computerTurn() {
 }
 
 function endOfPlay() {
-    debugger;
     if ((playerScore > computerScore && playerScore < 22) || computerScore > 21) {
         notificationArea.innerHTML = "Player wins!";
         gameWinCounter[0]++;
         document.getElementById("player-game-score").innerText = gameWinCounter[0];
+        playerMoney = playerMoney + (betAmount * 2);
+
     } else if (playerScore == computerScore) {
         notificationArea.innerHTML = "Draw";
+        playerMoney = playerMoney + betAmount;
+        computerMoney = computerMoney + betAmount;
     } else {
         notificationArea.innerHTML = "Computer wins!";
         gameWinCounter[1]++;
         document.getElementById("computer-game-score").innerText = gameWinCounter[1];
+        computerMoney = computerMoney + (betAmount * 2);
     }
-   
+    document.getElementById("computer-money").innerHTML = computerMoney;
+    document.getElementById("player-money").innerHTML = playerMoney;
     gameStop = true;
+    betplaced = false;
 }
