@@ -9,6 +9,8 @@ let playerMoney = 100;
 let computerMoney = 100;
 let betplaced = false;
 let betAmount = 0;
+let computerBlackJack = false;
+let playerBlackJack = false;
 
 
 let gameWinCounter = [0, 0];
@@ -23,36 +25,19 @@ const betButton = document.getElementById("bet-button");
 const betNotificationArea = document.getElementById("bet-notification");
 const computerCardArea = document.querySelector("#computer-player");
 const playerCardArea = document.querySelector("#human-player");
-console.log(computerCardArea);
+
 
 class Card {
-    constructor(value, type, image_url) {
+    constructor(value, type, image_url, index) {
         this.value = value;
         this.type = type;
         this.image = image_url;
+        this.index = index;
     }
 }
 
 document.getElementById("computer-money").innerHTML = computerMoney;
 document.getElementById("player-money").innerHTML = playerMoney;
-
-// betButton.addEventListener("click", function () {
-//     if (document.getElementById("bet").value == '') {
-
-//         notificationArea.innerHTML = "Enter the amount you would like to bet";
-
-//     } else {
-
-//         betAmount = parseInt(betAmount + placeBet(document.getElementById("bet").value));
-//         if (betAmount == 0) {
-//             return;
-//         } else {
-
-//             betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
-//         }
-//     }
-
-// });
 
 document.getElementById("bet5").addEventListener('click', function () {
     betAmount = betAmount + placeBet(5);
@@ -62,7 +47,7 @@ document.getElementById("bet5").addEventListener('click', function () {
     } else {
 
         betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
-        console.log(betNotificationArea.innerHTML);
+
     }
 });
 document.getElementById("bet10").addEventListener('click', function () {
@@ -104,6 +89,10 @@ resetButton.addEventListener("click", function () {
 startButton.addEventListener("click", function () {
     if (!deckReady) {
         startGame();
+    } else if (!betplaced && !gameStop) {
+        return;
+    } else if (gameStop) {
+        notificationArea.innerHTML = "Place your bet by clicking on the betting buttons."
     } else {
         resetGame();
         startGame();
@@ -117,9 +106,7 @@ stayButton.addEventListener("click", function () {
     if (gameStop) {
         return;
     }
-    player = "computer";
-    displayCards(playerHand, computerHand, player);
-    computerTurn();
+    letComputerPlay();
 });
 
 
@@ -134,8 +121,10 @@ function startGame() {
         createDeck();
         // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
         dealInitialCards();
+        betplaced = false;
     } else {
         notificationArea.innerHTML = "Place your bet first";
+
     }
 
 }
@@ -143,10 +132,10 @@ function startGame() {
 function placeBet(money) {
     if (computerMoney - money < 0) {
         betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
-        return ;
+        return 0;
     } else if (playerMoney - money < 0) {
         betNotificationArea.innerHTML = "You don't have sufficient money for this bet.";
-        return ;
+        return 0;
     } else {
         computerMoney = computerMoney - money;
         document.getElementById("computer-money").innerHTML = computerMoney;
@@ -154,6 +143,7 @@ function placeBet(money) {
         document.getElementById("player-money").innerHTML = playerMoney;
         //document.getElementById("bet").value = '';
         betplaced = true;
+        gameStop = false;
         return money;
     }
 }
@@ -165,9 +155,7 @@ function hit() {
         notificationArea.innerHTML = 'There are no cards in the deck. Click "Start Game" to play.';
         deckReady = false;
         return;
-    }
-
-    else {
+    } else {
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
         playerHand.push(fullDeck[cardNumber]);
 
@@ -189,8 +177,13 @@ function displayCards(playerHand, computerHand, player) {
     displayComputer(computerHand, player);
     displayHuman(playerHand);
 
-    playerScore = calculateScore(playerHand);
-    document.getElementById("human-score").innerText = playerScore;
+    // playerScore = calculateScore(playerHand);
+    if (playerBlackJack) {
+        document.getElementById("human-score").innerText = "BlackJack!";
+    } else {
+        document.getElementById("human-score").innerText = playerScore;
+    }
+    
 
 }
 
@@ -221,7 +214,12 @@ function displayComputer(computerHand, player) {
             computerScore = calculateScore(computerHand);
 
         };
-        document.getElementById("computer-score").innerHTML = computerScore;
+        if (computerBlackJack) {
+            document.getElementById("computer-score").innerHTML = "BlackJack!"
+        } else {
+           document.getElementById("computer-score").innerHTML = computerScore; 
+        }
+        
     }
 }
 
@@ -247,13 +245,13 @@ function createDeck() {
         }
         for (let j = 0; j < 4; j++) {
             if (j == 0) {
-                fullDeck.push(new Card(cardValue, "diamonds", `assets/img/cards/${i}D.jpg`));
+                fullDeck.push(new Card(cardValue, "diamonds", `assets/img/cards/${i}D.jpg`, i));
             } else if (j == 1) {
-                fullDeck.push(new Card(cardValue, "hearts", `assets/img/cards/${i}H.jpg`));
+                fullDeck.push(new Card(cardValue, "hearts", `assets/img/cards/${i}H.jpg`, i));
             } else if (j == 2) {
-                fullDeck.push(new Card(cardValue, "spades", `assets/img/cards/${i}S.jpg`));
+                fullDeck.push(new Card(cardValue, "spades", `assets/img/cards/${i}S.jpg`, i));
             } else {
-                fullDeck.push(new Card(cardValue, "clubs", `assets/img/cards/${i}C.jpg`));
+                fullDeck.push(new Card(cardValue, "clubs", `assets/img/cards/${i}C.jpg`, i));
             }
         }
         cardValue = i + 1;
@@ -276,20 +274,22 @@ function dealInitialCards() {
     notificationArea.innerHTML = '';
     computerScore = calculateScore(computerHand);
     playerScore = calculateScore(playerHand);
-
+    computerBlackJack = isBlackJack(computerHand);
+    playerBlackJack = isBlackJack(playerHand);
     displayCards(playerHand, computerHand, player);
 
     calculateWin();
     // player score is displayed, but computer score is hidden for now
 
     deckReady = true;
+
 }
 
 // this function is used to calculate the current hand
 function calculateScore(score) {
     let totalScore = 0;
     let aceCounter = 0;
-    let blackjack = false;
+    
     for (let i = 0; i < score.length; i++) {
         if (score[i].value == 1) {
             aceCounter++;
@@ -298,12 +298,12 @@ function calculateScore(score) {
         totalScore += score[i].value;
 
         // if one of the cards is an Ace it can be either 1 or 11. This will recalculate the score if the higher score would be less than 22
-        if (score[i].value == 1 && totalScore + 10 < 22) {
+        if (score[i].index == 1 && totalScore + 10 < 22) {
             totalScore += 10;
         }
     }
-// if an ace is already in the hand, this loop will change the value of the ace to the best fit
-    if (aceCounter !=0 && totalScore > 21) {
+    // if an ace is already in the hand, this loop will change the value of the ace to the best fit
+    if (aceCounter != 0 && totalScore > 21) {
         for (let i = 0; i < score.length; i++) {
             if (totalScore > 21) {
                 if (score[i].value == 1) {
@@ -312,8 +312,8 @@ function calculateScore(score) {
             } else {
                 continue;
             }
-            
-        } 
+
+        }
     }
 
     return totalScore;
@@ -321,8 +321,8 @@ function calculateScore(score) {
 
 function resetGameCounter() {
 
-    document.getElementById("player-game-score").innerText = "";
-    document.getElementById("computer-game-score").innerText = "";
+    // document.getElementById("player-game-score").innerText = "";
+    // document.getElementById("computer-game-score").innerText = "";
     document.getElementById("computer-money").innerHTML = 100;
     document.getElementById("player-money").innerHTML = 100;
     betNotificationArea.innerHTML = "";
@@ -345,18 +345,23 @@ function resetGameCounter() {
 }
 
 function calculateWin() {
-    let scoreRemainder = 21 - playerScore;
-    let smallerCards = 0;
-
-    for (let cardsRemaining = 0; cardsRemaining < fullDeck.length; cardsRemaining++) {
-        if (fullDeck[cardsRemaining].value <= scoreRemainder) {
-            smallerCards++;
+    if (playerBlackJack) {
+        notificationArea.innerHTML = "You have BlackJack! You should NOT hit!";
+    } else {
+        let scoreRemainder = 21 - playerScore;
+        let smallerCards = 0;
+    
+        for (let cardsRemaining = 0; cardsRemaining < fullDeck.length; cardsRemaining++) {
+            if (fullDeck[cardsRemaining].value <= scoreRemainder) {
+                smallerCards++;
+            }
         }
+        let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
+        notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
+    
+        return winPercentage;
     }
-    let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
-    notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
-
-    return winPercentage;
+    
 
 }
 
@@ -376,6 +381,7 @@ function resetGame() {
 
     playerScore = 0;
     document.getElementById("human-score").innerText = "";
+    document.getElementById("computer-score").innerText = "";
     computerScore = 0;
     playerHand = [];
     computerHand = [];
@@ -386,7 +392,10 @@ function resetGame() {
 }
 
 function computerTurn() {
-    while (computerScore < 17 || (computerScore < playerScore && playerScore <= 21)) {
+    while ((computerScore < playerScore && playerScore <= 21)) {
+        if (computerScore == 21) {
+            return;
+        }
         let cardNumber = Math.floor((Math.random() * fullDeck.length));
         computerHand.push(fullDeck[cardNumber]);
         fullDeck.splice(cardNumber, 1);
@@ -401,33 +410,41 @@ function computerTurn() {
 }
 
 function endOfPlay() {
-    if ((playerScore > computerScore && playerScore < 22) || computerScore > 21) {
+    if (playerBlackJack && !computerBlackJack) {
         playerWins();
-
-    } else if (playerScore == computerScore) {
-        gameIsDraw();
-    } else {
+    } else if (playerBlackJack && computerBlackJack) {
         computerWins();
+    } else if (!playerBlackJack && computerBlackJack) {
+        computerWins();
+    } else {
+        if ((playerScore > computerScore && playerScore < 22) || computerScore > 21) {
+            playerWins();
+    
+        } else if (playerScore == computerScore) {
+            gameIsDraw();
+        } else {
+            computerWins();
+        }
     }
-
+    
     document.getElementById("computer-money").innerHTML = computerMoney;
     document.getElementById("player-money").innerHTML = playerMoney;
     gameStop = true;
     betplaced = false;
     betAmount = 0;
-    betNotificationArea.innerHTML = "";
+    betNotificationArea.innerHTML = 'Please place your bet and click "Deal"';
 }
 
 function playerWins() {
     notificationArea.innerHTML = `Player wins! You won $${betAmount * 2}`;
     gameWinCounter[0]++;
-    document.getElementById("player-game-score").innerText = gameWinCounter[0];
+    // document.getElementById("player-game-score").innerText = gameWinCounter[0];
     playerMoney = playerMoney + (betAmount * 2);
 }
 
 function gameIsDraw() {
     notificationArea.innerHTML = "Draw";
-    console.log(betAmount);
+
     playerMoney = (playerMoney + betAmount);
     computerMoney = (computerMoney + betAmount);
 }
@@ -435,6 +452,37 @@ function gameIsDraw() {
 function computerWins() {
     notificationArea.innerHTML = `Computer wins! You lost $${betAmount}`;
     gameWinCounter[1]++;
-    document.getElementById("computer-game-score").innerText = gameWinCounter[1];
+    // document.getElementById("computer-game-score").innerText = gameWinCounter[1];
     computerMoney = computerMoney + (betAmount * 2);
+}
+
+function isBlackJack(cardHand) {
+    if (cardHand.length == 2) {
+        let ace = 0;
+        let face = 0
+        for (let cards = 0; cards < cardHand.length; cards++) {
+            if (cardHand[cards].index == 1) {
+                ace++;
+            } else if (cardHand[cards].index == 11 || cardHand[cards].index == 12 || cardHand[cards].index == 13) {
+                face++;
+            }
+        }
+        
+        
+        if (ace == 1 && face == 1) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    } else {
+        return false;
+    }
+
+}
+
+function letComputerPlay() {
+    player = "computer";
+    displayCards(playerHand, computerHand, player);
+    computerTurn();
 }

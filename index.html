@@ -22,27 +22,18 @@
     <section>
         <div class="container">
             <div class="row" id="game-area">
-                <!-- <div class="col-12" id="side-menu"> -->
-                    <!-- <div class="row"> -->
-                        <div class="col-12 game-buttons center">
-                            <button type="button" class="btn btn-primary" id="start-button">Deal</button>
-                            <button type="button" class="btn btn-primary" id="reset-button">New Game</button>
+               
+                        <div class="col-6 game-buttons center">
+                            
+                            <button type="button" class="btn btn-secondary" id="reset-button">Main Menu</button>
                         </div>
-                        <div class="col-6 score-bets center">
-                            Computer Score: <span id="computer-game-score"></span>
+                        <div class="col-3 order-first score-bets center">
+                            
                             <p>Computer money: <span id="computer-money"></span></p>
                         </div>
-                    <!-- </div> -->
-                    <!-- <div class="row menu-buttons"> -->
-                        
-                        <!-- <div class="col-6 col-md-3 center">
-                            <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
-                            <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
-                        </div> -->
-                    <!-- </div> -->
-                    <!-- <div class="row"> -->
-                        <div class="col-6 score-bets center">
-                            Player Score: <span id="player-game-score"></span>
+                  
+                        <div class="col-3 order-third score-bets center">
+                            
                             <p>Player money: <span id="player-money"></span></p>
                           
                             
@@ -50,34 +41,33 @@
                         <div class="col-12 center">
                             <p>Quick Bets</p>
                             <ul id="quick-bets">
-                                <li id="bet5"><span id="hidden-zero">0</span>5<span id="hidden-zero">0</span></li>
-                                <li id="bet10"><span id="hidden-zero">0</span>10<span id="hidden-zero">0</span></li>
-                                <li id="bet20"><span id="hidden-zero">0</span>20<span id="hidden-zero">0</span></li>
-                                <li id="bet50"><span id="hidden-zero">0</span>50<span id="hidden-zero">0</span></li>
+                                <li id="bet5"><button class="btn btn-warning">5</button></li>
+                                <li id="bet10"><button class="btn btn-warning">10</button></li>
+                                <li id="bet20"><button class="btn btn-warning">20</button></li>
+                                <li id="bet50"><button class="btn btn-warning">50</button></li>
                             </ul>
-                                <!-- <input type="text" id="bet" name="bet">
-                                <button class="btn btn-primary" id="bet-button">Bet</button> -->
+                            <div id="bet-notification"></div>
                             </div>  
-                    <!-- </div> -->
-
-                <!-- </div> -->
+               
                 <div class="col-12" id="play-area">
                     <div class="row dealer-area" id="computer-player"></div>
                     <div class="row dealer-area" id="bets-area">
                         <div class="col-3 score-display">
-                            Computer Score: <span id="computer-score"></span>
+                            Computer <br> Score <p id="computer-score"></p>
                         </div>
                         <div class="col-6 options-area">
 
                             <div id="options-notification"></div>
-                            <div id="bet-notification"></div>
-                            <div class="center">
-                                <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
-                                <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
-                            </div>
+                            
+                            
                         </div>
                         <div class="col-3 score-display">
-                            Player Score: <span id="human-score"></span>
+                            Player <br> Score <p id="human-score"></p>
+                        </div>
+                        <div class="col-12 center">
+                            <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
+                            <button type="button" class="btn btn-primary" id="start-button">Deal</button>
+                            <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
                         </div>
                         
                     </div>

@@ -22,6 +22,10 @@ body {
 
 }
 
+#quick-bets {
+    padding: 0;
+}
+
 #quick-bets li{
     display: inline-block;
     margin: auto 15px;
@@ -50,24 +54,28 @@ body {
 
 .options-area {
     text-align: center;
+    border-bottom: 1px dotted black;
 }
 
 #human-score, #computer-score {
     font-size: large;
+    
 }
 
 .score-display {
-    display: flex;
+    /* display: flex; */
     font-size: large;
     text-align: center;
     align-items: center;
+    border: 1px dotted black;
+    padding: 0;
 }
 
 .menu-buttons {
     text-align: center;
 }
 
-.btn {
+.btn-primary {
     margin: 10px;
 
 }
