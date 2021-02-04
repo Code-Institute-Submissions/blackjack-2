@@ -4,7 +4,7 @@ let player = "human";
 let fullDeck = [];
 let computerHand = [];
 let playerHand = [];
-let gameStop = false;
+let gameStop = true;
 let playerMoney = 100;
 let computerMoney = 100;
 let betplaced = false;
@@ -89,11 +89,10 @@ resetButton.addEventListener("click", function () {
 startButton.addEventListener("click", function () {
     if (!deckReady) {
         startGame();
-    } else if (!betplaced && !gameStop) {
-        return;
-    } else if (gameStop) {
+    } else if (!betplaced && gameStop) {
         notificationArea.innerHTML = "Place your bet by clicking on the betting buttons."
-    } else {
+        return;
+    }  else {
         resetGame();
         startGame();
     }
@@ -122,6 +121,7 @@ function startGame() {
         // after the deck of cards is created, the cards are dealt. The computer and player each get two cards from the deck
         dealInitialCards();
         betplaced = false;
+        gameStop = false;
     } else {
         notificationArea.innerHTML = "Place your bet first";
 
@@ -143,7 +143,7 @@ function placeBet(money) {
         document.getElementById("player-money").innerHTML = playerMoney;
         //document.getElementById("bet").value = '';
         betplaced = true;
-        gameStop = false;
+        
         return money;
     }
 }
@@ -333,7 +333,7 @@ function resetGameCounter() {
     fullDeck = [];
     computerHand = [];
     playerHand = [];
-    gameStop = false;
+    gameStop = true;
     playerMoney = 100;
     computerMoney = 100;
     betplaced = false;
@@ -385,7 +385,7 @@ function resetGame() {
     computerScore = 0;
     playerHand = [];
     computerHand = [];
-    gameStop = false;
+    // gameStop = false;
 
 
 
@@ -410,6 +410,7 @@ function computerTurn() {
 }
 
 function endOfPlay() {
+    
     if (playerBlackJack && !computerBlackJack) {
         playerWins();
     } else if (playerBlackJack && computerBlackJack) {
@@ -426,7 +427,7 @@ function endOfPlay() {
             computerWins();
         }
     }
-    
+
     document.getElementById("computer-money").innerHTML = computerMoney;
     document.getElementById("player-money").innerHTML = playerMoney;
     gameStop = true;
