@@ -12,29 +12,36 @@
 </head>
 
 <body>
-
+<div class="container d-none" id="overlay">
+    <div class="row">
+        <div class="col-12">
+            BlackJack
+        </div>
+    </div>
+</div>
     <section>
         <div class="container-fluid">
             <div class="row" id="game-area">
                 <!-- <div class="col-12" id="side-menu"> -->
                     <!-- <div class="row"> -->
-                        <div class="col-12 col-md-3 score-bets center">
+                        <div class="col-12 game-buttons center">
+                            <button type="button" class="btn btn-primary" id="start-button">Deal</button>
+                            <button type="button" class="btn btn-primary" id="reset-button">New Game</button>
+                        </div>
+                        <div class="col-6 score-bets center">
                             Computer Score: <span id="computer-game-score"></span>
                             <p>Computer money: <span id="computer-money"></span></p>
                         </div>
                     <!-- </div> -->
                     <!-- <div class="row menu-buttons"> -->
-                        <div class="col-6 col-md-3 game-buttons center">
-                            <button type="button" class="btn btn-primary" id="start-button">Deal</button>
-                            <button type="button" class="btn btn-primary" id="reset-button">New Game</button>
-                        </div>
-                        <div class="col-6 col-md-3 center">
+                        
+                        <!-- <div class="col-6 col-md-3 center">
                             <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
                             <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
-                        </div>
+                        </div> -->
                     <!-- </div> -->
                     <!-- <div class="row"> -->
-                        <div class="col-12 col-md-3 score-bets center">
+                        <div class="col-6 score-bets center">
                             Player Score: <span id="player-game-score"></span>
                             <p>Player money: <span id="player-money"></span></p>
                           
@@ -55,36 +62,25 @@
 
                 <!-- </div> -->
                 <div class="col-12" id="play-area">
-                    <div class="row dealer-area" id="computer-player">
-
-                        <!-- <div class="col computer-cards" id="computer-card-1"></div>
-                        <div class="col computer-cards" id="computer-card-2"></div>
-                        <div class="col computer-cards" id="computer-card-3"></div>
-                        <div class="col computer-cards" id="computer-card-4"></div>
-                        <div class="col computer-cards" id="computer-card-5"></div>
-                        <div class="col computer-cards" id="computer-card-6"></div> -->
-                    </div>
+                    <div class="row dealer-area" id="computer-player"></div>
                     <div class="row dealer-area" id="bets-area">
-                        <div class="col-12 score-display">
+                        <div class="col-3 score-display">
                             Computer Score: <span id="computer-score"></span>
                         </div>
-                        <div class="col-12 options-area">
+                        <div class="col-6 options-area">
 
                             <div id="options-notification"></div>
                             <div id="bet-notification"></div>
                         </div>
-                        <div class="col-12 score-display">
+                        <div class="col-3 score-display">
                             Player Score: <span id="human-score"></span>
                         </div>
+                        <div class="col-12 center">
+                            <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
+                            <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
+                        </div>
                     </div>
-                    <div class="row dealer-area" id="human-player">
-                        <!-- <div class="col human-cards" id="human-card-1"></div>
-                        <div class="col human-cards" id="human-card-2"></div>
-                        <div class="col human-cards" id="human-card-3"></div>
-                        <div class="col human-cards" id="human-card-4"></div>
-                        <div class="col human-cards" id="human-card-5"></div>
-                        <div class="col human-cards" id="human-card-6"></div> -->
-                    </div>
+                    <div class="row dealer-area" id="human-player"></div>
                 </div>
             </div>
         </div>
@@ -103,7 +99,7 @@
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
     <script src="assets/js/gameLogic.js" type="text/javascript"></script>
-    <script src="assets/js/functions.js" type="text/javascript"></script>
+
 
 
 </body>

@@ -9,13 +9,16 @@ body {
     height: 100vh;
 }
 
-#side-menu, #play-area {
+#play-area {
     border: 1px solid black;
+    height: 70vh;
+
 }
 
-.dealer-area {
+.dealer-area, .computer-player, .human-player {
     border: 1px solid black;
-    height: 33vh;
+    height: auto;
+    width: 100vw;
 }
 
 #quick-bets li{
@@ -64,13 +67,20 @@ body {
 
 .btn {
     margin: 10px;
-    width: 150px;
+
 }
 
 img {
     display: block;
     max-height: 100%;
-    width: auto;
-    padding: 0px;
+    width: 100%;
+    padding: 2px;
     margin: auto;
+}
+
+#overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(000, 000, 000, 0.3);
+    z-index: 10000;
 }

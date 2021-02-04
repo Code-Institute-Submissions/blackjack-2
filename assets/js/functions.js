@@ -21,7 +21,6 @@ function createDeck() {
     }
 }
 
-
 // This function deals the initial cards. Both players get two cards. The human player can see both of their cards
 // and one computer card. 
 function dealInitialCards() {
@@ -69,6 +68,12 @@ function resetGameCounter() {
     document.getElementById("computer-game-score").innerText = "";
     document.getElementById("computer-money").innerHTML = 100;
     document.getElementById("player-money").innerHTML = 100;
+    computerMoney = 100;
+    playerMoney = 100;
+    betNotificationArea.innerHTML = "";
+    notificationArea.innerHTML = "";
+    document.getElementById("computer-score").innerHTML = "";
+    document.getElementById("human-score").innerHTML = "";
     
 }
 
@@ -108,6 +113,8 @@ function resetGame() {
     playerHand = [];
     computerHand = [];
     gameStop = false;
+    playerMoney = 100;
+    computerMoney = 100;
     
 
 }
