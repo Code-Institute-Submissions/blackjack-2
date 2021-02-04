@@ -20,7 +20,7 @@
     </div>
 </div>
     <section>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row" id="game-area">
                 <!-- <div class="col-12" id="side-menu"> -->
                     <!-- <div class="row"> -->
@@ -55,8 +55,8 @@
                                 <li id="bet20"><span id="hidden-zero">0</span>20<span id="hidden-zero">0</span></li>
                                 <li id="bet50"><span id="hidden-zero">0</span>50<span id="hidden-zero">0</span></li>
                             </ul>
-                                <input type="text" id="bet" name="bet">
-                                <button class="btn btn-primary" id="bet-button">Bet</button>
+                                <!-- <input type="text" id="bet" name="bet">
+                                <button class="btn btn-primary" id="bet-button">Bet</button> -->
                             </div>  
                     <!-- </div> -->
 
@@ -71,14 +71,15 @@
 
                             <div id="options-notification"></div>
                             <div id="bet-notification"></div>
+                            <div class="center">
+                                <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
+                                <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
+                            </div>
                         </div>
                         <div class="col-3 score-display">
                             Player Score: <span id="human-score"></span>
                         </div>
-                        <div class="col-12 center">
-                            <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
-                            <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
-                        </div>
+                        
                     </div>
                     <div class="row dealer-area" id="human-player"></div>
                 </div>

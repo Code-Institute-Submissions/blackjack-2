@@ -1,3 +1,4 @@
+let dynamicCard;
 let deckReady = false;
 let player = "human";
 let fullDeck = [];
@@ -8,7 +9,7 @@ let playerMoney = 100;
 let computerMoney = 100;
 let betplaced = false;
 let betAmount = 0;
-let dynamicCard;
+
 
 let gameWinCounter = [0, 0];
 
@@ -35,24 +36,23 @@ class Card {
 document.getElementById("computer-money").innerHTML = computerMoney;
 document.getElementById("player-money").innerHTML = playerMoney;
 
-betButton.addEventListener("click", function () {
-    if (document.getElementById("bet").value == '') {
+// betButton.addEventListener("click", function () {
+//     if (document.getElementById("bet").value == '') {
 
-        notificationArea.innerHTML = "Enter the amount you would like to bet";
+//         notificationArea.innerHTML = "Enter the amount you would like to bet";
 
-    } else {
+//     } else {
 
-        betAmount = parseInt(betAmount + placeBet(document.getElementById("bet").value));
-        console.log(betAmount);
-        if (betAmount == 0) {
-            return;
-        } else {
+//         betAmount = parseInt(betAmount + placeBet(document.getElementById("bet").value));
+//         if (betAmount == 0) {
+//             return;
+//         } else {
 
-            betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
-        }
-    }
+//             betNotificationArea.innerHTML = `You bet ${betAmount}. Total bet is ${betAmount * 2}`;
+//         }
+//     }
 
-});
+// });
 
 document.getElementById("bet5").addEventListener('click', function () {
     betAmount = betAmount + placeBet(5);
@@ -62,6 +62,7 @@ document.getElementById("bet5").addEventListener('click', function () {
     } else {
 
         betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+        console.log(betNotificationArea.innerHTML);
     }
 });
 document.getElementById("bet10").addEventListener('click', function () {
@@ -142,16 +143,16 @@ function startGame() {
 function placeBet(money) {
     if (computerMoney - money < 0) {
         betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
-        return 0;
+        return ;
     } else if (playerMoney - money < 0) {
         betNotificationArea.innerHTML = "You don't have sufficient money for this bet.";
-        return 0;
+        return ;
     } else {
         computerMoney = computerMoney - money;
         document.getElementById("computer-money").innerHTML = computerMoney;
         playerMoney = playerMoney - money;
         document.getElementById("player-money").innerHTML = playerMoney;
-        document.getElementById("bet").value = '';
+        //document.getElementById("bet").value = '';
         betplaced = true;
         return money;
     }
@@ -287,7 +288,12 @@ function dealInitialCards() {
 // this function is used to calculate the current hand
 function calculateScore(score) {
     let totalScore = 0;
+    let aceCounter = 0;
+    let blackjack = false;
     for (let i = 0; i < score.length; i++) {
+        if (score[i].value == 1) {
+            aceCounter++;
+        }
 
         totalScore += score[i].value;
 
@@ -296,23 +302,46 @@ function calculateScore(score) {
             totalScore += 10;
         }
     }
+// if an ace is already in the hand, this loop will change the value of the ace to the best fit
+    if (aceCounter !=0 && totalScore > 21) {
+        for (let i = 0; i < score.length; i++) {
+            if (totalScore > 21) {
+                if (score[i].value == 1) {
+                    totalScore -= 10;
+                }
+            } else {
+                continue;
+            }
+            
+        } 
+    }
 
     return totalScore;
 }
 
 function resetGameCounter() {
-    gameWinCounter = [0, 0];
+
     document.getElementById("player-game-score").innerText = "";
     document.getElementById("computer-game-score").innerText = "";
     document.getElementById("computer-money").innerHTML = 100;
     document.getElementById("player-money").innerHTML = 100;
-    computerMoney = 100;
-    playerMoney = 100;
     betNotificationArea.innerHTML = "";
     notificationArea.innerHTML = "";
     document.getElementById("computer-score").innerHTML = "";
     document.getElementById("human-score").innerHTML = "";
-    
+    player = "human";
+    fullDeck = [];
+    computerHand = [];
+    playerHand = [];
+    gameStop = false;
+    playerMoney = 100;
+    computerMoney = 100;
+    betplaced = false;
+    betAmount = 0;
+
+
+    let gameWinCounter = [0, 0];
+
 }
 
 function calculateWin() {
@@ -344,7 +373,7 @@ function resetGame() {
     }
     computerCardArea.innerHTML = "";
     playerCardArea.innerHTML = "";
- 
+
     playerScore = 0;
     document.getElementById("human-score").innerText = "";
     computerScore = 0;
@@ -352,7 +381,7 @@ function resetGame() {
     computerHand = [];
     gameStop = false;
 
-    
+
 
 }
 
@@ -373,10 +402,10 @@ function computerTurn() {
 
 function endOfPlay() {
     if ((playerScore > computerScore && playerScore < 22) || computerScore > 21) {
-       playerWins();
+        playerWins();
 
     } else if (playerScore == computerScore) {
-       gameIsDraw();
+        gameIsDraw();
     } else {
         computerWins();
     }
@@ -389,8 +418,8 @@ function endOfPlay() {
     betNotificationArea.innerHTML = "";
 }
 
-function playerWins () {
-    notificationArea.innerHTML = `Player wins! You won $${betAmount*2}`;
+function playerWins() {
+    notificationArea.innerHTML = `Player wins! You won $${betAmount * 2}`;
     gameWinCounter[0]++;
     document.getElementById("player-game-score").innerText = gameWinCounter[0];
     playerMoney = playerMoney + (betAmount * 2);

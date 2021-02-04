@@ -10,15 +10,16 @@ body {
 }
 
 #play-area {
-    border: 1px solid black;
+
     height: 70vh;
+    width: 100vw;
 
 }
 
 .dealer-area, .computer-player, .human-player {
     border: 1px solid black;
     height: auto;
-    width: 100vw;
+
 }
 
 #quick-bets li{
@@ -56,12 +57,13 @@ body {
 }
 
 .score-display {
+    display: flex;
     font-size: large;
     text-align: center;
+    align-items: center;
 }
 
 .menu-buttons {
-    margin-top: 50%;
     text-align: center;
 }
 
@@ -72,8 +74,8 @@ body {
 
 img {
     display: block;
-    max-height: 100%;
-    width: 100%;
+    max-height: auto;
+    max-width: 100%;
     padding: 2px;
     margin: auto;
 }
