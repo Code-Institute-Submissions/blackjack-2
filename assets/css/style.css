@@ -1,24 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap');
 
 body {
     background-color: green;
     font-family: 'Lato', sans-serif;
-}
-
-#game-area {
-    height: 100vh;
-}
-
-#play-area {
-
-    height: 70vh;
-    width: 100vw;
+    background-image: url("/assets/img/background/felt.png");
+    background-blend-mode: multiply;
 
 }
 
 .dealer-area, .computer-player, .human-player {
-    border: 1px solid black;
-    height: auto;
+    /* border: 1px solid black; */
+    padding: 3px;
+    margin: 0;
+
 
 }
 
@@ -31,15 +26,9 @@ body {
     margin: auto 15px;
     cursor: pointer;
     text-decoration: none;
-    border: 1px dashed gold;
-    border-radius: 10px;
     font-weight: 800;
-    background-color: gold;
 }
 
-#hidden-zero {
-    color: gold;
-}
 
 .human-cards, .computer-cards {
     text-align: center;
@@ -54,38 +43,49 @@ body {
 
 .options-area {
     text-align: center;
-    border-bottom: 1px dotted black;
+    border: 1px dotted gold;
+    border-radius: 15px;
+    padding: 30px 5px;
+    font-weight: 700;
+
+}
+
+.game-button {
+    font-size: 1.5rem;
+    font-family: 'Londrina Solid', sans-serif;
+    margin: 10px;
+}
+
+.betting-button {
+    font-weight: 900;
 }
 
 #human-score, #computer-score {
     font-size: large;
-    
 }
 
 .score-display {
-    /* display: flex; */
     font-size: large;
+    font-weight: 700;
     text-align: center;
     align-items: center;
-    border: 1px dotted black;
+    border: 1px dotted gold;
+    border-radius: 15px;
     padding: 0;
+    
+
 }
 
 .menu-buttons {
     text-align: center;
 }
 
-.btn-primary {
-    margin: 10px;
-
-}
 
 img {
     display: block;
     max-height: auto;
     max-width: 100%;
-    padding: 2px;
-    margin: auto;
+    padding: 1px;
 }
 
 #overlay {
@@ -93,4 +93,20 @@ img {
     height: 100vh;
     background-color: rgba(000, 000, 000, 0.3);
     z-index: 10000;
+}
+
+@media only screen and (max-width: 576px) {
+
+    .game-button {
+font-size: 1rem;
+
+    }
+
+
+    .options-area {
+        padding: 20px;
+
+    }
+
+
 }

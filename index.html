@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row" id="game-area">
                
-                        <div class="col-6 game-buttons center">
+                        <div class="col-6 center">
                             
                             <button type="button" class="btn btn-secondary" id="reset-button">Main Menu</button>
                         </div>
@@ -41,23 +41,23 @@
                         <div class="col-12 center">
                             <p>Quick Bets</p>
                             <ul id="quick-bets">
-                                <li id="bet5"><button class="btn btn-warning">5</button></li>
-                                <li id="bet10"><button class="btn btn-warning">10</button></li>
-                                <li id="bet20"><button class="btn btn-warning">20</button></li>
-                                <li id="bet50"><button class="btn btn-warning">50</button></li>
+                                <li id="bet5"><button class="btn btn-warning betting-button">5</button></li>
+                                <li id="bet10"><button class="btn btn-warning betting-button">10</button></li>
+                                <li id="bet20"><button class="btn btn-warning betting-button">20</button></li>
+                                <li id="bet50"><button class="btn btn-warning betting-button">50</button></li>
                             </ul>
                             <div id="bet-notification"></div>
                             </div>  
                
-                <div class="col-12" id="play-area">
+                
                     <div class="row dealer-area" id="computer-player"></div>
                     <div class="row dealer-area" id="bets-area">
                         <div class="col-3 score-display">
                             Computer <br> Score <p id="computer-score"></p>
                         </div>
                         <div class="col-6 options-area">
-
-                            <div id="options-notification"></div>
+                            
+                            <p id="options-notification"></p>
                             
                             
                         </div>
@@ -65,14 +65,13 @@
                             Player <br> Score <p id="human-score"></p>
                         </div>
                         <div class="col-12 center">
-                            <button type="button" class="btn btn-primary" id="hit-button">Hit</button>
-                            <button type="button" class="btn btn-primary" id="start-button">Deal</button>
-                            <button type="button" class="btn btn-primary" id="stay-button">Stay</button>
+                            <button type="button" class="btn btn-primary game-button" id="hit-button">Hit</button>
+                            <button type="button" class="btn btn-primary game-button" id="start-button">Deal</button>
+                            <button type="button" class="btn btn-primary game-button" id="stay-button">Stay</button>
                         </div>
                         
                     </div>
                     <div class="row dealer-area" id="human-player"></div>
-                </div>
             </div>
         </div>
     </section>
