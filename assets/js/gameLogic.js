@@ -40,6 +40,9 @@ document.getElementById("computer-money").innerHTML = computerMoney;
 document.getElementById("player-money").innerHTML = playerMoney;
 
 document.getElementById("bet5").addEventListener('click', function () {
+    if (!gameStop) {
+        return;
+    } else {
     betAmount = betAmount + placeBet(5);
 
     if (betAmount == 0) {
@@ -49,8 +52,12 @@ document.getElementById("bet5").addEventListener('click', function () {
         betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
 
     }
+}
 });
 document.getElementById("bet10").addEventListener('click', function () {
+    if (!gameStop) {
+        return;
+    } else {
     betAmount = betAmount + placeBet(10);
 
     if (betAmount == 0) {
@@ -58,9 +65,14 @@ document.getElementById("bet10").addEventListener('click', function () {
     } else {
 
         betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+
     }
+}
 });
 document.getElementById("bet20").addEventListener('click', function () {
+    if (!gameStop) {
+        return;
+    } else {
     betAmount = betAmount + placeBet(20);
 
     if (betAmount == 0) {
@@ -68,9 +80,14 @@ document.getElementById("bet20").addEventListener('click', function () {
     } else {
 
         betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+
     }
+}
 });
 document.getElementById("bet50").addEventListener('click', function () {
+    if (!gameStop) {
+        return;
+    } else {
     betAmount = betAmount + placeBet(50);
 
     if (betAmount == 0) {
@@ -78,7 +95,9 @@ document.getElementById("bet50").addEventListener('click', function () {
     } else {
 
         betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+
     }
+}
 });
 
 resetButton.addEventListener("click", function () {
@@ -92,7 +111,9 @@ startButton.addEventListener("click", function () {
     } else if (!betplaced && gameStop) {
         notificationArea.innerHTML = "Place your bet by clicking on the betting buttons."
         return;
-    }  else {
+    }  else if (!betplaced && !gameStop) {
+        return;
+    } else {
         resetGame();
         startGame();
     }
