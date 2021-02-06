@@ -110,6 +110,8 @@ startButton.addEventListener("click", function () {
         startGame();
     } else if (!betplaced && gameStop) {
         notificationArea.innerHTML = "Place your bet by clicking on the betting buttons."
+        document.getElementById("computer-player").innerHTML = "";
+        document.getElementById("human-player").innerHTML = "";
         return;
     }  else if (!betplaced && !gameStop) {
         return;
@@ -310,32 +312,23 @@ function dealInitialCards() {
 function calculateScore(score) {
     let totalScore = 0;
     let aceCounter = 0;
-    
-    for (let i = 0; i < score.length; i++) {
-        if (score[i].value == 1) {
-            aceCounter++;
+    let scoreCopy = score.map((x) => x);
+
+    for (let i = 0; i < scoreCopy.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if(scoreCopy[i].value > scoreCopy[j].value) {
+                let tempValue = scoreCopy.splice(i,1);
+                scoreCopy.unshift(tempValue[0]);
+            }
         }
+    }    
 
-        totalScore += score[i].value;
-
-        // if one of the cards is an Ace it can be either 1 or 11. This will recalculate the score if the higher score would be less than 22
-        if (score[i].index == 1 && totalScore + 10 < 22) {
+    for (let i = 0; i < scoreCopy.length; i++) {
+        totalScore += scoreCopy[i].value;
+        if(scoreCopy[i].value == 1 && totalScore + 10 < 22) {
             totalScore += 10;
         }
-    }
-    // if an ace is already in the hand, this loop will change the value of the ace to the best fit
-    if (aceCounter != 0 && totalScore > 21) {
-        for (let i = 0; i < score.length; i++) {
-            if (totalScore > 21) {
-                if (score[i].value == 1) {
-                    totalScore -= 10;
-                }
-            } else {
-                continue;
-            }
-
-        }
-    }
+    }        
 
     return totalScore;
 }

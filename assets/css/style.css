@@ -61,17 +61,18 @@ body {
 }
 
 #human-score, #computer-score {
-    font-size: large;
+    font-size: 1.5rem;
 }
 
 .score-display {
-    font-size: large;
+    font-size: 1.5rem;
     font-weight: 700;
     text-align: center;
     align-items: center;
     border: 1px dotted gold;
     border-radius: 15px;
     padding: 0;
+    font-family: 'Lorinda Solid', sans-serif;
     
 
 }
@@ -104,8 +105,11 @@ font-size: 1rem;
 
 
     .options-area {
-        padding: 20px;
+        padding: 5px;
 
+    }
+    .score-display {
+        font-size: 1rem;
     }
 
 
