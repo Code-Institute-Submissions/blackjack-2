@@ -96,7 +96,6 @@ document.getElementById("bet50").addEventListener('click', function () {
         betAmount = betAmount + placeBet(50);
 
         if (betAmount == 0) {
-            betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
             return;
         } else {
 
@@ -141,7 +140,11 @@ stayButton.addEventListener("click", function () {
 });
 
 playGame.addEventListener("click", function () {
-    playerName = document.getElementById("player-name").value;
+    if(document.getElementById("player-name").value == "") {
+        playerName = "Player";
+    } else {
+        playerName = document.getElementById("player-name").value;
+    }
     resetGame();
     resetGameCounter();
     playStart();
@@ -179,11 +182,9 @@ function startGame() {
 }
 
 function placeBet(money) {
-    if (computerMoney - money < 0) {
-        betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
+    if ((computerMoney - money) < 0) {
         return 0;
-    } else if (playerMoney - money < 0) {
-        betNotificationArea.innerHTML = "You don't have sufficient money for this bet.";
+    } else if ((playerMoney - money) < 0) {
         return 0;
     } else {
         computerMoney = computerMoney - money;
@@ -497,7 +498,7 @@ function endOfPlay() {
 }
 
 function playerWins() {
-    notificationArea.innerHTML = `Player wins! You won $${betAmount * 2}`;
+    notificationArea.innerHTML = `${playerName} wins! You won $${betAmount * 2}`;
     gameWinCounter[0]++;
     // document.getElementById("player-game-score").innerText = gameWinCounter[0];
     playerMoney = playerMoney + (betAmount * 2);
