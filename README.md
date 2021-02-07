@@ -112,6 +112,9 @@ Microsoft Visual Studio Code is an Integrated Development Environment (IDE) used
 ## [Git](https://git-scm.com/)
 Git was used alongside Visual Studio Code as a local version control platform. All commits were regularly pushed to GitHub. 
 
+## [Jasmine](https://jasmine.github.io/)
+Jasmine was used to test two functions which calculate the value of the cards in either the computer or player hands.  
+
 ## [GTmetrix](https://gtmetrix.com/)
 GTmetrix is an online service used to evaluate the load time and performance of websites. 
 

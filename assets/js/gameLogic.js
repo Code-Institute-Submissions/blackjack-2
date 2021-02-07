@@ -1,3 +1,4 @@
+// Declaring global variables which will be used throughout the script
 let dynamicCard;
 let deckReady = false;
 let player = "human";
@@ -23,10 +24,10 @@ let handWinCounter = [0, 0, 0];
 let tempHandWinCounter = [0, 0, 0];
 let totalGameWinCounter = [0, 0];
 
-
+// Declaring constants for the most common used elements to manipulate the DOM
 const hitButton = document.getElementById("hit-button");
 const dealButton = document.getElementById("start-button");
-const mainMenuButton = document.getElementById("reset-button");
+const mainMenuButton = document.getElementById("main-menu-button");
 const notificationArea = document.getElementById("options-notification");
 const stayButton = document.getElementById("stay-button");
 const betNotificationArea = document.getElementById("bet-notification");
@@ -34,7 +35,7 @@ const computerCardArea = document.querySelector("#computer-player");
 const playerCardArea = document.querySelector("#human-player");
 const playGame = document.getElementById("play-game");
 
-
+// Creating a class for cards which will be automatically generated each game
 class Card {
     constructor(value, type, image_url, index) {
         this.value = value;
@@ -44,9 +45,11 @@ class Card {
     }
 }
 
+// at the beginning of the game, both the player and the computer start with the same amount of money
 document.getElementById("computer-money").innerHTML = computerMoney;
 document.getElementById("player-money").innerHTML = playerMoney;
 
+// This function calls the placeBet() function when the button is clicked
 document.getElementById("bet5").addEventListener('click', function () {
     if (!gameStop) {
         return;
@@ -62,6 +65,8 @@ document.getElementById("bet5").addEventListener('click', function () {
         }
     }
 });
+
+// This function calls the placeBet() function when the button is clicked
 document.getElementById("bet10").addEventListener('click', function () {
     if (!gameStop) {
         return;
@@ -77,6 +82,8 @@ document.getElementById("bet10").addEventListener('click', function () {
         }
     }
 });
+
+// This function calls the placeBet() function when the button is clicked
 document.getElementById("bet20").addEventListener('click', function () {
     if (!gameStop) {
         return;
@@ -92,6 +99,8 @@ document.getElementById("bet20").addEventListener('click', function () {
         }
     }
 });
+
+// This function calls the placeBet() function when the button is clicked
 document.getElementById("bet50").addEventListener('click', function () {
     if (!gameStop) {
         return;
@@ -108,12 +117,14 @@ document.getElementById("bet50").addEventListener('click', function () {
     }
 });
 
+// This function listens for a click on the main menu button to take the player to the main menu
 mainMenuButton.addEventListener("click", function () {
     saveToLocalStorage(playerName, handWinCounter, totalGameWinCounter);
     document.getElementById("stats-data").innerHTML = "";
     document.getElementById("overlay").classList.remove("d-none");
 });
 
+// Checks whether the "Deal" button is clicked and deals the cards
 dealButton.addEventListener("click", function () {
     if (!deckReady) {
         startGame();
@@ -132,8 +143,10 @@ dealButton.addEventListener("click", function () {
     }
 });
 
+// Runs the hit() function when the hit button is pressed
 hitButton.addEventListener("click", hit);
 
+// when the stay button is clicked, this function will stop the player and start the computers turn
 stayButton.addEventListener("click", function () {
 
     if (gameStop) {
@@ -142,6 +155,7 @@ stayButton.addEventListener("click", function () {
     letComputerPlay();
 });
 
+// Initializes when the "Play New Game" button is pressed to start a new game from the main menu
 playGame.addEventListener("click", function () {
     if (document.getElementById("player-name").value == "") {
         playerName = "Player";
@@ -156,6 +170,7 @@ playGame.addEventListener("click", function () {
     changePlayerName();
 });
 
+// Changes the game difficulty in the main menu
 document.getElementById("difficulty-toggle").addEventListener("change", (event) => {
     if (event.currentTarget.checked) {
         document.getElementById("difficulty-display").innerHTML = "Normal Difficulty";
@@ -166,6 +181,7 @@ document.getElementById("difficulty-toggle").addEventListener("change", (event) 
     }
 });
 
+// Toggles the sound on and off from the main menu
 document.getElementById("sound-toggle").addEventListener("change", (event) => {
     if (event.currentTarget.checked) {
         document.getElementById("sound-display").innerHTML = "Sound On";
@@ -176,10 +192,12 @@ document.getElementById("sound-toggle").addEventListener("change", (event) => {
     }
 });
 
+// Clears localStorage from main menu
 document.getElementById("clear-data").addEventListener("click", function () {
     clearLocalStorage();
 });
 
+// Clears the localStorage data for a single player
 document.getElementById("clear-player-data").addEventListener("click", function () {
     let playerData = document.getElementById("player-name").value;
     if (localStorage.getItem(playerData) != "") {
@@ -191,15 +209,15 @@ document.getElementById("clear-player-data").addEventListener("click", function 
 
 });
 
+// Checks game stats for a single player
 document.getElementById("check-player-stats").addEventListener("click", function () {
     let statsNotificationArea = document.getElementById("stats-data");
     playerName = document.getElementById("player-name").value;
     if (playerName == "") {
         playerName = "Player";
     }
-    for (let i = 0; i < localStorage.length; i++) {
-        if (playerName == localStorage.key(i)) {
-            console.log(localStorage.key(i));
+    for (let storageItem = 0; storageItem < localStorage.length; storageItem++) {
+        if (playerName == localStorage.key(storageItem)) {
             let recoverSaveData = JSON.parse(localStorage.getItem(playerName));
             totalGameWinCounter = [recoverSaveData.totalGameWinCounter[0], recoverSaveData.totalGameWinCounter[1]];
             tempHandWinCounter = [recoverSaveData.handWinCounter[0], recoverSaveData.handWinCounter[1], recoverSaveData.handWinCounter[2]];
@@ -240,6 +258,7 @@ function startGame() {
 
 }
 
+// calculates the bet for each hand
 function placeBet(money) {
     if ((computerMoney - money) < 0) {
         return 0;
@@ -250,13 +269,13 @@ function placeBet(money) {
         document.getElementById("computer-money").innerHTML = computerMoney;
         playerMoney = playerMoney - money;
         document.getElementById("player-money").innerHTML = playerMoney;
-        //document.getElementById("bet").value = '';
         betplaced = true;
 
         return money;
     }
 }
 
+// When the player hits, it deals a new card and calculates new score
 function hit() {
     if (gameStop) {
         return;
@@ -281,6 +300,7 @@ function hit() {
 
 }
 
+// Displays cards for both the computer and player
 function displayCards(playerHand, computerHand, player) {
 
     displayComputer(computerHand, player);
@@ -298,7 +318,7 @@ function displayCards(playerHand, computerHand, player) {
 
 }
 
-
+// displays cards for the computer depending on the active player
 function displayComputer(computerHand, player) {
     if (player == "human") {
         computerCardArea.innerHTML = "";
@@ -337,6 +357,7 @@ function displayComputer(computerHand, player) {
     }
 }
 
+// displays cards for the human player
 function displayHuman(playerHand) {
     playerCardArea.innerHTML = "";
 
@@ -360,22 +381,22 @@ function displayHuman(playerHand) {
 // This function creates a deck of cards at the start of the game. It is called by the startGame() function
 function createDeck() {
     let cardValue = 1;
-    for (let i = 1; i < 14; i++) {
-        if (i > 10) {
+    for (let newCard = 1; newCard < 14; newCard++) {
+        if (newCard > 10) {
             cardValue = 10;
         }
-        for (let j = 0; j < 4; j++) {
-            if (j == 0) {
-                fullDeck.push(new Card(cardValue, "diamonds", `assets/img/cards/${i}D.jpg`, i));
-            } else if (j == 1) {
-                fullDeck.push(new Card(cardValue, "hearts", `assets/img/cards/${i}H.jpg`, i));
-            } else if (j == 2) {
-                fullDeck.push(new Card(cardValue, "spades", `assets/img/cards/${i}S.jpg`, i));
+        for (let cardType = 0; cardType < 4; cardType++) {
+            if (cardType == 0) {
+                fullDeck.push(new Card(cardValue, "diamonds", `assets/img/cards/${newCard}D.jpg`, newCard));
+            } else if (cardType == 1) {
+                fullDeck.push(new Card(cardValue, "hearts", `assets/img/cards/${newCard}H.jpg`, newCard));
+            } else if (cardType == 2) {
+                fullDeck.push(new Card(cardValue, "spades", `assets/img/cards/${newCard}S.jpg`, newCard));
             } else {
-                fullDeck.push(new Card(cardValue, "clubs", `assets/img/cards/${i}C.jpg`, i));
+                fullDeck.push(new Card(cardValue, "clubs", `assets/img/cards/${newCard}C.jpg`, newCard));
             }
         }
-        cardValue = i + 1;
+        cardValue = newCard + 1;
     }
 }
 
@@ -402,7 +423,6 @@ function dealInitialCards() {
     displayCards(playerHand, computerHand, player);
 
     calculateWin();
-    // player score is displayed, but computer score is hidden for now
 
     deckReady = true;
 
@@ -413,18 +433,18 @@ function calculateScore(score) {
     let totalScore = 0;
     let scoreCopy = score.map((x) => x);
 
-    for (let i = 0; i < scoreCopy.length; i++) {
-        for (let j = 0; j < i; j++) {
-            if (scoreCopy[i].value > scoreCopy[j].value) {
-                let tempValue = scoreCopy.splice(i, 1);
+    for (let oldScore = 0; oldScore < scoreCopy.length; oldScore++) {
+        for (let newScore = 0; newScore < oldScore; newScore++) {
+            if (scoreCopy[oldScore].value > scoreCopy[newScore].value) {
+                let tempValue = scoreCopy.splice(oldScore, 1);
                 scoreCopy.unshift(tempValue[0]);
             }
         }
     }
 
-    for (let i = 0; i < scoreCopy.length; i++) {
-        totalScore += scoreCopy[i].value;
-        if (scoreCopy[i].value == 1 && totalScore + 10 < 22) {
+    for (let newScore = 0; newScore < scoreCopy.length; newScore++) {
+        totalScore += scoreCopy[newScore].value;
+        if (scoreCopy[newScore].value == 1 && totalScore + 10 < 22) {
             totalScore += 10;
         }
     }
@@ -432,10 +452,9 @@ function calculateScore(score) {
     return totalScore;
 }
 
+// resets the game to its original state
 function resetGameCounter() {
 
-    // document.getElementById("player-game-score").innerText = "";
-    // document.getElementById("computer-game-score").innerText = "";
     document.getElementById("computer-money").innerHTML = 100;
     document.getElementById("player-money").innerHTML = 100;
     betNotificationArea.innerHTML = "";
@@ -459,6 +478,7 @@ function resetGameCounter() {
 
 }
 
+// calculates the percentage chance that the next card will add to less than 21
 function calculateWin() {
     if (gameDifficulty === "easy") {
         if (playerBlackJack) {
@@ -483,6 +503,7 @@ function calculateWin() {
 
 }
 
+// resets the play area after each hand is played
 function resetGame() {
 
     deckReady = false;
@@ -507,12 +528,12 @@ function resetGame() {
     computerScore = 0;
     playerHand = [];
     computerHand = [];
-    // gameStop = false;
 
 
 
 }
 
+// plays the computer hand once the player has decided to "stay"
 function computerTurn() {
     while ((computerScore < playerScore && playerScore <= 21)) {
         if (computerScore == 21) {
@@ -531,6 +552,7 @@ function computerTurn() {
 
 }
 
+// at the end of each hand, calculates who had the winning hand
 function endOfPlay() {
 
     if (playerBlackJack && !computerBlackJack) {
@@ -564,13 +586,14 @@ function endOfPlay() {
 
 }
 
+// what happens when the player wins
 function playerWins() {
     notificationArea.innerHTML = `${playerName} wins! You won $${betAmount * 2}`;
     handWinCounter[0]++;
-    // document.getElementById("player-game-score").innerText = handWinCounter[0];
     playerMoney = playerMoney + (betAmount * 2);
 }
 
+// what happens if the game is a draw
 function gameIsDraw() {
     notificationArea.innerHTML = "Draw";
     handWinCounter[2]++;
@@ -578,13 +601,14 @@ function gameIsDraw() {
     computerMoney = (computerMoney + betAmount);
 }
 
+// what happens if the computer wins
 function computerWins() {
     notificationArea.innerHTML = `Computer wins! You lost $${betAmount}`;
     handWinCounter[1]++;
-    // document.getElementById("computer-game-score").innerText = handWinCounter[1];
     computerMoney = computerMoney + (betAmount * 2);
 }
 
+// looks at the first two cards dealt to check whether the computer or player have a blackjack
 function isBlackJack(cardHand) {
     if (cardHand.length == 2) {
         let ace = 0;
@@ -610,12 +634,14 @@ function isBlackJack(cardHand) {
 
 }
 
+// switches the player from human to computer
 function letComputerPlay() {
     player = "computer";
     displayCards(playerHand, computerHand, player);
     computerTurn();
 }
 
+//when either the player or computer have run out of money this will end the game and add up the final scores
 function gameOver() {
     if (handWinCounter[0] > handWinCounter[1]) {
         gameWinner = playerName;
@@ -633,20 +659,21 @@ function gameOver() {
 
 }
 
+// Starts the game
 function playStart() {
     document.getElementById("overlay").classList.add("d-none");
 }
 
+// changes the player name depending on the input field in the main menu
 function changePlayerName() {
     document.getElementById("player-name-display").innerHTML = `${playerName}'s`;
     document.getElementById("player-name-display-score").innerHTML = `${playerName}'s`;
 }
 
+// saves the game data to local storage
 function saveToLocalStorage(playerName, handWinCounter, totalGameWinCounter) {
 
-    console.log(handWinCounter);
     handWinCounter = [handWinCounter[0] + tempHandWinCounter[0], handWinCounter[1] + tempHandWinCounter[1], handWinCounter[2] + tempHandWinCounter[2]];
-    console.log(handWinCounter);
     let myObj = {
         "handWinCounter": handWinCounter,
         "totalGameWinCounter": totalGameWinCounter
@@ -659,13 +686,13 @@ function saveToLocalStorage(playerName, handWinCounter, totalGameWinCounter) {
 
 }
 
+// when the player enters their name in the input field on the main meny, this function will check whether this palyer has played before. If yes, their data will be retrieved
 function recoverSavedGame() {
-    for (let i = 0; i < localStorage.length; i++) {
-        if (playerName == localStorage.key(i)) {
+    for (let savedItem = 0; savedItem < localStorage.length; savedItem++) {
+        if (playerName == localStorage.key(savedItem)) {
             let recoverSaveData = JSON.parse(localStorage.getItem(playerName));
             totalGameWinCounter = [recoverSaveData.totalGameWinCounter[0], recoverSaveData.totalGameWinCounter[1]];
             tempHandWinCounter = [recoverSaveData.handWinCounter[0], recoverSaveData.handWinCounter[1], recoverSaveData.handWinCounter[2]];
-            console.log(tempHandWinCounter);
             let gamesplayed = totalGameWinCounter[0] + totalGameWinCounter[1];
             if (gamesplayed === 0) {
                 notificationArea.innerHTML = `Welcome back ${playerName}. You started, but haven't finished a game. Good luck!`;
@@ -685,6 +712,7 @@ function recoverSavedGame() {
     }
 }
 
+// clears local storage
 function clearLocalStorage() {
     localStorage.clear();
     document.getElementById("stats-data").innerHTML = "All local game data cleared";

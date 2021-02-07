@@ -1,3 +1,5 @@
+/* Importing fonts to be used throughout the page */
+
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap');
 
@@ -6,20 +8,16 @@ body {
     font-family: 'Lato', sans-serif;
     background-image: url("/assets/img/background/felt.png");
     background-blend-mode: multiply;
-
 }
 
 .dealer-area, .computer-player, .human-player {
-    /* border: 1px solid black; */
     padding: 3px;
     margin: 0;
 }
 
 .dealer-area {
     margin: 10px 0 10px 0;
-
 }
-
 
 #quick-bets {
     padding: 0;
@@ -32,7 +30,6 @@ body {
     text-decoration: none;
     font-weight: 800;
 }
-
 
 .human-cards, .computer-cards {
     text-align: center;
@@ -52,7 +49,6 @@ body {
 
 #center a {
     color: white;
-
 }
 
 .options-area {
@@ -61,7 +57,6 @@ body {
     border-radius: 15px;
     padding: 30px 5px;
     font-weight: 700;
-
 }
 
 .game-button {
@@ -76,7 +71,6 @@ body {
 
 .score {
     font-size: 3rem;
-
 }
 
 .black-jack {
@@ -122,7 +116,6 @@ img {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    
 }
 
 .main-menu-title {
@@ -168,6 +161,7 @@ img {
 }
 
 /* CSS code for slider button taken from W3Schools at https://www.w3schools.com/howto/howto_css_switch.asp */
+/* -------------- CODE STARTS HERE --------------- */
 .switch {
     position: relative;
     display: inline-block;
@@ -227,20 +221,26 @@ img {
     border-radius: 50%;
   }
 
+
+  /* --------------- CODE FROM W3SCHOOLS ENDS HERE---------------- */
+
+
+
+
+  /* Adding media query to display correctly on small screens */
+
+
 @media only screen and (max-width: 576px) {
 
     .game-button {
-font-size: 1rem;
-
+    font-size: 1rem;
     }
-
     .score {
-        font-size: 1.5rem;
+    font-size: 1.5rem;
     }
 
     .options-area {
-        padding: 5px;
-
+    padding: 5px;
     }
     .score-display {
         font-size: 1rem;
@@ -260,7 +260,6 @@ font-size: 1rem;
         margin-bottom: 5px;
     }  
 
-
     .black-jack {
         font-size: 1rem;
         font-weight: 900;
@@ -272,6 +271,8 @@ font-size: 1rem;
         color: red;
     }
 }
+
+/* Adding media query to display correctly on high width / low height screens */
 
 @media only screen and (min-width: 1000px) and (max-width: 1920px) and (max-height: 1080px) {
     .card-display {
