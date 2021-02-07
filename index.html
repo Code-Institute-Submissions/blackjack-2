@@ -12,66 +12,86 @@
 </head>
 
 <body>
-<div class="container d-none" id="overlay">
-    <div class="row">
-        <div class="col-12">
-            BlackJack
+    <div class="container-fluid" id="overlay">
+
+        <div class="row main-menu">
+            <div class="col-12 main-menu-title">
+                BlackJack
+            </div>
+
+            <div class="col-12 player-name-input">
+                <p>Enter your name</p>
+                <input type="text" id="player-name" name="player-name">
+            </div>
+            
+            <!-- Code for slider taken from W3Schools at https://www.w3schools.com/howto/howto_css_switch.asp -->
+            <div class="col-12 difficulty-container">
+                <p>Choose your difficulty</p>
+                <label class="switch">
+                    <input type="checkbox" id="difficulty-toggle">
+                    <span class="slider round"></span>
+                  </label>
+                  <span id="difficulty-display">Easy Difficulty</span>
+            </div>
+            <div class="col-12 play-game-button">
+                <button type="button" id="play-game" class="btn btn-primary">Play Game</button>
+            </div>
         </div>
     </div>
-</div>
+
     <section>
         <div class="container">
             <div class="row" id="game-area">
-               
-                        <div class="col-6 center">
-                            
-                            <button type="button" class="btn btn-secondary" id="reset-button">Main Menu</button>
-                        </div>
-                        <div class="col-3 order-first score-bets center">
-                            
-                            <p>Computer money: <span id="computer-money"></span></p>
-                        </div>
-                  
-                        <div class="col-3 order-third score-bets center">
-                            
-                            <p>Player money: <span id="player-money"></span></p>
-                          
-                            
-                        </div>
-                        <div class="col-12 center">
-                            <p>Quick Bets</p>
-                            <ul id="quick-bets">
-                                <li id="bet5"><button class="btn btn-warning betting-button">5</button></li>
-                                <li id="bet10"><button class="btn btn-warning betting-button">10</button></li>
-                                <li id="bet20"><button class="btn btn-warning betting-button">20</button></li>
-                                <li id="bet50"><button class="btn btn-warning betting-button">50</button></li>
-                            </ul>
-                            <div id="bet-notification"></div>
-                            </div>  
-               
-                
-                    <div class="row dealer-area" id="computer-player"></div>
-                    <div class="row dealer-area" id="bets-area">
-                        <div class="col-3 score-display">
-                            Computer <br> Score <p id="computer-score"></p>
-                        </div>
-                        <div class="col-6 options-area">
-                            
-                            <p id="options-notification"></p>
-                            
-                            
-                        </div>
-                        <div class="col-3 score-display">
-                            Player <br> Score <p id="human-score"></p>
-                        </div>
-                        <div class="col-12 center">
-                            <button type="button" class="btn btn-primary game-button" id="hit-button">Hit</button>
-                            <button type="button" class="btn btn-primary game-button" id="start-button">Deal</button>
-                            <button type="button" class="btn btn-primary game-button" id="stay-button">Stay</button>
-                        </div>
-                        
+
+                <div class="col-6 center">
+
+                    <button type="button" class="btn btn-secondary" id="reset-button">Main Menu</button>
+                </div>
+                <div class="col-3 order-first score-bets center">
+
+                    <p>Computer money: <span id="computer-money"></span></p>
+                </div>
+
+                <div class="col-3 order-third score-bets center">
+
+                    <p>Player money: <span id="player-money"></span></p>
+
+
+                </div>
+                <div class="col-12 center score-display">
+                    <p>Place your bet</p>
+                    <ul id="quick-bets">
+                        <li id="bet5"><button class="btn btn-warning betting-button">5</button></li>
+                        <li id="bet10"><button class="btn btn-warning betting-button">10</button></li>
+                        <li id="bet20"><button class="btn btn-warning betting-button">20</button></li>
+                        <li id="bet50"><button class="btn btn-warning betting-button">50</button></li>
+                    </ul>
+                    <div id="bet-notification"></div>
+                </div>
+
+
+                <div class="row dealer-area cards-display" id="computer-player"></div>
+                <div class="row dealer-area" id="bets-area">
+                    <div class="col-3 score-display">
+                        Computer <br> hand <p class="score" id="computer-score"></p>
                     </div>
-                    <div class="row dealer-area" id="human-player"></div>
+                    <div class="col-6 options-area">
+
+                        <p id="options-notification"></p>
+
+
+                    </div>
+                    <div class="col-3 score-display">
+                        Player <br> hand <p class="score" id="human-score"></p>
+                    </div>
+                    <div class="col-12 center">
+                        <button type="button" class="btn btn-primary game-button" id="hit-button">Hit</button>
+                        <button type="button" class="btn btn-primary game-button" id="start-button">Deal</button>
+                        <button type="button" class="btn btn-primary game-button" id="stay-button">Stay</button>
+                    </div>
+
+                </div>
+                <div class="row dealer-area cards-display" id="human-player"></div>
             </div>
         </div>
     </section>
@@ -84,7 +104,7 @@
 
 
 
-   
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>

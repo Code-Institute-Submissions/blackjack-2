@@ -13,9 +13,13 @@ body {
     /* border: 1px solid black; */
     padding: 3px;
     margin: 0;
+}
 
+.dealer-area {
+    margin: 10px 0 10px 0;
 
 }
+
 
 #quick-bets {
     padding: 0;
@@ -60,8 +64,15 @@ body {
     font-weight: 900;
 }
 
-#human-score, #computer-score {
-    font-size: 1.5rem;
+.score {
+    font-size: 3rem;
+
+}
+
+.black-jack {
+    font-size: 2rem;
+    font-weight: 900;
+    color: red;
 }
 
 .score-display {
@@ -72,9 +83,12 @@ body {
     border: 1px dotted gold;
     border-radius: 15px;
     padding: 0;
-    font-family: 'Lorinda Solid', sans-serif;
-    
+    font-family: 'Londrina Solid', sans-serif;
+}
 
+.score-bets {
+    font-family: 'Londrina Solid', sans-serif;
+    font-size: 2rem;
 }
 
 .menu-buttons {
@@ -90,11 +104,111 @@ img {
 }
 
 #overlay {
+    position: absolute;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(000, 000, 000, 0.3);
+    background-color: rgba(0, 27, 0, 0.9);
     z-index: 10000;
+    backdrop-filter: blur(5px);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
 }
+
+.main-menu-title {
+    text-align: center;
+    font-family: 'Londrina Solid', sans-serif;
+    font-size: 5rem;
+    color: red;
+}
+
+.player-name-input {
+    color: white;
+    text-align: center;
+    margin: 10px;
+    text-decoration: ;
+}
+
+.play-game-button {
+    text-align: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.difficulty-container {
+    text-align: center;
+}
+
+.difficulty-container p {
+    color: white;
+    text-decoration: underline;
+}
+
+#difficulty-display {
+    color: white;
+    margin-left: 10px;
+}
+
+/* CSS code for slider button taken from W3Schools at https://www.w3schools.com/howto/howto_css_switch.asp */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
 
 @media only screen and (max-width: 576px) {
 
@@ -103,6 +217,9 @@ font-size: 1rem;
 
     }
 
+    .score {
+        font-size: 1.5rem;
+    }
 
     .options-area {
         padding: 5px;
@@ -110,7 +227,32 @@ font-size: 1rem;
     }
     .score-display {
         font-size: 1rem;
+        font-weight: 500;
     }
 
+    .dealer-area {
+        margin: 0;
+    }
+
+    .score-bets {
+        font-family: 'Londrina Solid', sans-serif;
+        font-size: 1.2rem;
+    }
+
+    .score-bets p {
+        margin-bottom: 5px;
+    }  
+
+
+    .black-jack {
+        font-size: 1rem;
+        font-weight: 900;
+        color: red;
+    }
+
+    .main-menu-title {
+        font-family: 'Lorinda Solid', sans-serif;
+        font-size: 4rem;
+        color: red;
 
 }
