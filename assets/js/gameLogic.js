@@ -1,6 +1,7 @@
 let dynamicCard;
 let deckReady = false;
 let player = "human";
+let playerName = ""
 let fullDeck = [];
 let computerHand = [];
 let playerHand = [];
@@ -13,7 +14,7 @@ let betplaced = false;
 let betAmount = 0;
 let computerBlackJack = false;
 let playerBlackJack = false;
-let gameWinner; 
+let gameWinner;
 let gameDifficulty = "easy";
 
 
@@ -47,62 +48,62 @@ document.getElementById("bet5").addEventListener('click', function () {
     if (!gameStop) {
         return;
     } else {
-    betAmount = betAmount + placeBet(5);
+        betAmount = betAmount + placeBet(5);
 
-    if (betAmount == 0) {
-        return;
-    } else {
+        if (betAmount == 0) {
+            return;
+        } else {
 
-        betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+            betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
 
+        }
     }
-}
 });
 document.getElementById("bet10").addEventListener('click', function () {
     if (!gameStop) {
         return;
     } else {
-    betAmount = betAmount + placeBet(10);
+        betAmount = betAmount + placeBet(10);
 
-    if (betAmount == 0) {
-        return;
-    } else {
+        if (betAmount == 0) {
+            return;
+        } else {
 
-        betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+            betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
 
+        }
     }
-}
 });
 document.getElementById("bet20").addEventListener('click', function () {
     if (!gameStop) {
         return;
     } else {
-    betAmount = betAmount + placeBet(20);
+        betAmount = betAmount + placeBet(20);
 
-    if (betAmount == 0) {
-        return;
-    } else {
+        if (betAmount == 0) {
+            return;
+        } else {
 
-        betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+            betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
 
+        }
     }
-}
 });
 document.getElementById("bet50").addEventListener('click', function () {
     if (!gameStop) {
         return;
     } else {
-    betAmount = betAmount + placeBet(50);
+        betAmount = betAmount + placeBet(50);
 
-    if (betAmount == 0) {
-        betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
-        return;
-    } else {
+        if (betAmount == 0) {
+            betNotificationArea.innerHTML = "Computer doesn't have sufficient money for this bet.";
+            return;
+        } else {
 
-        betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
+            betNotificationArea.innerHTML = `You bet $${betAmount}. Total bet is $${betAmount * 2}`;
 
+        }
     }
-}
 });
 
 mainMenuButton.addEventListener("click", function () {
@@ -121,7 +122,7 @@ dealButton.addEventListener("click", function () {
         document.getElementById("computer-score").innerHTML = "";
         document.getElementById("human-score").innerHTML = "";
         return;
-    }  else if (!betplaced && !gameStop) {
+    } else if (!betplaced && !gameStop) {
         return;
     } else {
         resetGame();
@@ -139,20 +140,22 @@ stayButton.addEventListener("click", function () {
     letComputerPlay();
 });
 
-playGame.addEventListener("click", function() {
+playGame.addEventListener("click", function () {
+    playerName = document.getElementById("player-name").value;
     resetGame();
     resetGameCounter();
     playStart();
+    changePlayerName();
 });
 
 document.getElementById("difficulty-toggle").addEventListener("change", (event) => {
-   if (event.currentTarget.checked) {
-       document.getElementById("difficulty-display").innerHTML = "Normal Difficulty";
-       gameDifficulty = "normal";
-   } else {
-    document.getElementById("difficulty-display").innerHTML = "Easy Difficulty";
-    gameDifficulty = "easy";
-   }
+    if (event.currentTarget.checked) {
+        document.getElementById("difficulty-display").innerHTML = "Normal Difficulty";
+        gameDifficulty = "normal";
+    } else {
+        document.getElementById("difficulty-display").innerHTML = "Easy Difficulty";
+        gameDifficulty = "easy";
+    }
 });
 
 // Function startGame creates a deck of 52 cards if one is not created already. 
@@ -189,7 +192,7 @@ function placeBet(money) {
         document.getElementById("player-money").innerHTML = playerMoney;
         //document.getElementById("bet").value = '';
         betplaced = true;
-        
+
         return money;
     }
 }
@@ -231,7 +234,7 @@ function displayCards(playerHand, computerHand, player) {
     } else {
         document.getElementById("human-score").innerText = playerScore;
     }
-    
+
 
 }
 
@@ -264,12 +267,12 @@ function displayComputer(computerHand, player) {
         }
         if (computerBlackJack) {
             document.getElementById("computer-score").classList.remove("score");
-        document.getElementById("computer-score").classList.add("black-jack");
+            document.getElementById("computer-score").classList.add("black-jack");
             document.getElementById("computer-score").innerHTML = "Black Jack!";
         } else {
-           document.getElementById("computer-score").innerHTML = computerScore; 
+            document.getElementById("computer-score").innerHTML = computerScore;
         }
-        
+
     }
 }
 
@@ -326,8 +329,8 @@ function dealInitialCards() {
     playerScore = calculateScore(playerHand);
     computerBlackJack = isBlackJack(computerHand);
     playerBlackJack = isBlackJack(playerHand);
-    
-    
+
+
     displayCards(playerHand, computerHand, player);
 
     calculateWin();
@@ -344,19 +347,19 @@ function calculateScore(score) {
 
     for (let i = 0; i < scoreCopy.length; i++) {
         for (let j = 0; j < i; j++) {
-            if(scoreCopy[i].value > scoreCopy[j].value) {
-                let tempValue = scoreCopy.splice(i,1);
+            if (scoreCopy[i].value > scoreCopy[j].value) {
+                let tempValue = scoreCopy.splice(i, 1);
                 scoreCopy.unshift(tempValue[0]);
             }
         }
-    }    
+    }
 
     for (let i = 0; i < scoreCopy.length; i++) {
         totalScore += scoreCopy[i].value;
-        if(scoreCopy[i].value == 1 && totalScore + 10 < 22) {
+        if (scoreCopy[i].value == 1 && totalScore + 10 < 22) {
             totalScore += 10;
         }
-    }        
+    }
 
     return totalScore;
 }
@@ -390,25 +393,25 @@ function resetGameCounter() {
 
 function calculateWin() {
     if (gameDifficulty === "easy") {
-    if (playerBlackJack) {
-        notificationArea.innerHTML = "You have BlackJack! You should NOT hit!";
-    } else {
-        let scoreRemainder = 21 - playerScore;
-        let smallerCards = 0;
-    
-        for (let cardsRemaining = 0; cardsRemaining < fullDeck.length; cardsRemaining++) {
-            if (fullDeck[cardsRemaining].value <= scoreRemainder) {
-                smallerCards++;
+        if (playerBlackJack) {
+            notificationArea.innerHTML = "You have BlackJack! You should NOT hit!";
+        } else {
+            let scoreRemainder = 21 - playerScore;
+            let smallerCards = 0;
+
+            for (let cardsRemaining = 0; cardsRemaining < fullDeck.length; cardsRemaining++) {
+                if (fullDeck[cardsRemaining].value <= scoreRemainder) {
+                    smallerCards++;
+                }
             }
+            let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
+            notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
+
+            return winPercentage;
         }
-        let winPercentage = Math.round((smallerCards / fullDeck.length) * 100);
-        notificationArea.innerHTML = 'If you "hit", there is a ' + winPercentage + '% chance that you will be under 21.';
-    
-        return winPercentage;
+    } else {
+        return;
     }
-} else {
-    return;
-}
 
 }
 
@@ -479,18 +482,18 @@ function endOfPlay() {
         }
     }
 
-    
+
     document.getElementById("computer-money").innerHTML = computerMoney;
     document.getElementById("player-money").innerHTML = playerMoney;
     gameStop = true;
     betplaced = false;
     betAmount = 0;
-    if(playerMoney == 0 || computerMoney == 0) {
+    if (playerMoney == 0 || computerMoney == 0) {
         gameOver();
     } else {
         betNotificationArea.innerHTML = 'Please place your bet and click "Deal"';
     }
-    
+
 }
 
 function playerWins() {
@@ -525,14 +528,14 @@ function isBlackJack(cardHand) {
                 face++;
             }
         }
-        
-        
+
+
         if (ace == 1 && face == 1) {
             return true;
         } else {
             return false;
         }
-        
+
     } else {
         return false;
     }
@@ -551,14 +554,19 @@ function gameOver() {
     } else {
         gameWinner = "Computer";
     }
-    
+
     notificationArea.innerHTML = `Game Over! ${gameWinner} wins!`;
     setTimeout(() => {
         document.getElementById("overlay").classList.remove("d-none");
     }, 1500);
-    
+
 }
 
 function playStart() {
     document.getElementById("overlay").classList.add("d-none");
+}
+
+function changePlayerName() {
+    document.getElementById("player-name-display").innerHTML = `${playerName}'s`;
+    document.getElementById("player-name-display-score").innerHTML = `${playerName}'s`;
 }

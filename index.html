@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playing with Javascript</title>
+    <title>BlackJack - Javascript Game</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
@@ -23,15 +23,15 @@
                 <p>Enter your name</p>
                 <input type="text" id="player-name" name="player-name">
             </div>
-            
+
             <!-- Code for slider taken from W3Schools at https://www.w3schools.com/howto/howto_css_switch.asp -->
             <div class="col-12 difficulty-container">
                 <p>Choose your difficulty</p>
                 <label class="switch">
                     <input type="checkbox" id="difficulty-toggle">
                     <span class="slider round"></span>
-                  </label>
-                  <span id="difficulty-display">Easy Difficulty</span>
+                </label>
+                <span id="difficulty-display">Easy Difficulty</span>
             </div>
             <div class="col-12 play-game-button">
                 <button type="button" id="play-game" class="btn btn-primary">Play Game</button>
@@ -54,7 +54,7 @@
 
                 <div class="col-3 order-third score-bets center">
 
-                    <p>Player money: <span id="player-money"></span></p>
+                    <p><span id="player-name-display"></span> money: <span id="player-money"></span></p>
 
 
                 </div>
@@ -82,7 +82,7 @@
 
                     </div>
                     <div class="col-3 score-display">
-                        Player <br> hand <p class="score" id="human-score"></p>
+                        <span id="player-name-display-score"></span> <br> hand <p class="score" id="human-score"></p>
                     </div>
                     <div class="col-12 center">
                         <button type="button" class="btn btn-primary game-button" id="hit-button">Hit</button>
