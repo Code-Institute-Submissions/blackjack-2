@@ -135,6 +135,14 @@ img {
     margin: 10px;
 }
 
+.main-menu {
+    color: white;
+}
+
+.main-menu-stats {
+    text-align: center;
+}
+
 .difficulty-container {
     text-align: center;
 }
