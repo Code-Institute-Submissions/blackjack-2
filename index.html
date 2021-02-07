@@ -18,7 +18,9 @@
             <div class="col-12 main-menu-title">
                 BlackJack
             </div>
-
+            <div class="center">
+            <p id="center"><a href="https://www.casinocenter.com/rules-strategy-blackjack/" target="_blank">How to Play BlackJack</a></p>
+        </div>
             <div class="col-12 player-name-input">
                 <p>Enter your name</p>
                 <input type="text" id="player-name" name="player-name">
@@ -26,12 +28,21 @@
 
             <!-- Code for slider taken from W3Schools at https://www.w3schools.com/howto/howto_css_switch.asp -->
             <div class="col-12 difficulty-container">
-                <p>Choose your difficulty</p>
+                
+                
                 <label class="switch">
                     <input type="checkbox" id="difficulty-toggle">
                     <span class="slider round"></span>
                 </label>
                 <span id="difficulty-display">Easy Difficulty</span>
+            </div>
+            <div class="col-12 difficulty-container">
+                <p></p>
+                <label class="switch">
+                    <input type="checkbox" id="sound-toggle">
+                    <span class="slider round"></span>
+                </label>
+                <span id="sound-display">Sound Off</span>
             </div>
             <div class="col-12 play-game-button">
                 <button type="button" id="play-game" class="btn btn-primary">Play New Game</button>
@@ -49,7 +60,7 @@
         </div>
     </div>
 
-    <article>
+    
         <div class="container">
             <div class="row" id="game-area">
 
@@ -104,7 +115,7 @@
                 <div class="row dealer-area card-display" id="human-player"></div>
             </div>
         </div>
-    </article>
+   
 
 
 
@@ -118,7 +129,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
-    <script src="assets/js/gameLogic.js" type="text/javascript"></script>
+    <script src="assets/js/gameLogic.js" ></script>
 
 
 

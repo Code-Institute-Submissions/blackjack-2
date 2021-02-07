@@ -45,6 +45,16 @@ body {
     text-align: center;
 }
 
+#center {
+    margin: 0;
+    padding: 0;
+}
+
+#center a {
+    color: white;
+
+}
+
 .options-area {
     text-align: center;
     border: 1px dotted gold;
@@ -152,7 +162,7 @@ img {
     text-decoration: underline;
 }
 
-#difficulty-display {
+#difficulty-display, #sound-display {
     color: white;
     margin-left: 10px;
 }

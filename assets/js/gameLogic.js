@@ -1,7 +1,7 @@
 let dynamicCard;
 let deckReady = false;
 let player = "human";
-let playerName = ""
+let playerName = "";
 let fullDeck = [];
 let computerHand = [];
 let playerHand = [];
@@ -16,10 +16,11 @@ let computerBlackJack = false;
 let playerBlackJack = false;
 let gameWinner;
 let gameDifficulty = "easy";
+let sound = "off";
 
 
 let handWinCounter = [0, 0, 0];
-let tempHandWinCounter = [0,0,0];
+let tempHandWinCounter = [0, 0, 0];
 let totalGameWinCounter = [0, 0];
 
 
@@ -147,7 +148,7 @@ playGame.addEventListener("click", function () {
     } else {
         playerName = document.getElementById("player-name").value;
     }
-    tempHandWinCounter = [0,0,0];
+    tempHandWinCounter = [0, 0, 0];
     resetGame();
     resetGameCounter();
     recoverSavedGame();
@@ -165,11 +166,21 @@ document.getElementById("difficulty-toggle").addEventListener("change", (event) 
     }
 });
 
+document.getElementById("sound-toggle").addEventListener("change", (event) => {
+    if (event.currentTarget.checked) {
+        document.getElementById("sound-display").innerHTML = "Sound On";
+        sound = "on";
+    } else {
+        document.getElementById("sound-display").innerHTML = "Sound Off";
+        sound = "off";
+    }
+});
+
 document.getElementById("clear-data").addEventListener("click", function () {
     clearLocalStorage();
 });
 
-document.getElementById("clear-player-data").addEventListener("click", function() {
+document.getElementById("clear-player-data").addEventListener("click", function () {
     let playerData = document.getElementById("player-name").value;
     if (localStorage.getItem(playerData) != "") {
         localStorage.removeItem(document.getElementById("player-name").value);
@@ -177,28 +188,28 @@ document.getElementById("clear-player-data").addEventListener("click", function(
     } else {
         document.getElementById("stats-data").innerHTML = `Player ${playerData} does not exist`;
     }
-    
+
 });
 
-document.getElementById("check-player-stats").addEventListener("click", function() {
+document.getElementById("check-player-stats").addEventListener("click", function () {
     let statsNotificationArea = document.getElementById("stats-data");
     playerName = document.getElementById("player-name").value;
     if (playerName == "") {
         playerName = "Player";
     }
-    for (i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
         if (playerName == localStorage.key(i)) {
             console.log(localStorage.key(i));
             let recoverSaveData = JSON.parse(localStorage.getItem(playerName));
             totalGameWinCounter = [recoverSaveData.totalGameWinCounter[0], recoverSaveData.totalGameWinCounter[1]];
-            tempHandWinCounter = [recoverSaveData.handWinCounter[0],recoverSaveData.handWinCounter[1],recoverSaveData.handWinCounter[2]];
-           let handsplayed = tempHandWinCounter[0]+tempHandWinCounter[1]+tempHandWinCounter[2];
+            tempHandWinCounter = [recoverSaveData.handWinCounter[0], recoverSaveData.handWinCounter[1], recoverSaveData.handWinCounter[2]];
+            let handsplayed = tempHandWinCounter[0] + tempHandWinCounter[1] + tempHandWinCounter[2];
             let gamesplayed = totalGameWinCounter[0] + totalGameWinCounter[1];
             statsNotificationArea.innerHTML = `Games Played: ${gamesplayed}<br>
             Won: ${recoverSaveData.totalGameWinCounter[0]} | Lost: ${recoverSaveData.totalGameWinCounter[1]}<br>
             Hands Played: ${handsplayed}<br>
             Won: ${tempHandWinCounter[0]} | Lost: ${tempHandWinCounter[1]} | Draw: ${tempHandWinCounter[2]}`;
-            tempHandWinCounter = [0,0,0];
+            tempHandWinCounter = [0, 0, 0];
             return;
         } else {
             statsNotificationArea.innerHTML = "This player name does not exist";
@@ -207,7 +218,7 @@ document.getElementById("check-player-stats").addEventListener("click", function
     if (localStorage.length == 0) {
         statsNotificationArea.innerHTML = "This player name does not exist";
     }
-})
+});
 
 // Function startGame creates a deck of 52 cards if one is not created already. 
 // It uses the class "Card" to create cards as objects dynamically
@@ -302,6 +313,7 @@ function displayComputer(computerHand, player) {
             }
             document.getElementById("computer-score").innerHTML = "";
             computerCardArea.appendChild(dynamicCard);
+
         }
     } else {
         computerCardArea.innerHTML = "";
@@ -327,12 +339,19 @@ function displayComputer(computerHand, player) {
 
 function displayHuman(playerHand) {
     playerCardArea.innerHTML = "";
+
     for (let playerCards = 0; playerCards < playerHand.length; playerCards++) {
         dynamicCard = document.createElement("div");
         dynamicCard.classList.add("col-2");
         dynamicCard.classList.add("human-cards");
         dynamicCard.innerHTML = `<img src="${playerHand[playerCards].image}" alt="${playerHand[playerCards].value} + ' ' + ${playerHand[playerCards].type}" id="human-card-played-${playerCards + 1}">`;
         playerCardArea.appendChild(dynamicCard);
+
+        if (sound == "on") {
+            let audio = new Audio("/assets/sounds/card-deal.mp3");
+            audio.play();
+        }
+
     }
 
 }
@@ -631,7 +650,7 @@ function saveToLocalStorage(playerName, handWinCounter, totalGameWinCounter) {
     let myObj = {
         "handWinCounter": handWinCounter,
         "totalGameWinCounter": totalGameWinCounter
-    }
+    };
     let playerSaveData = JSON.stringify(myObj);
 
     localStorage.setItem(playerName, playerSaveData);
@@ -641,11 +660,11 @@ function saveToLocalStorage(playerName, handWinCounter, totalGameWinCounter) {
 }
 
 function recoverSavedGame() {
-    for (i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
         if (playerName == localStorage.key(i)) {
             let recoverSaveData = JSON.parse(localStorage.getItem(playerName));
             totalGameWinCounter = [recoverSaveData.totalGameWinCounter[0], recoverSaveData.totalGameWinCounter[1]];
-            tempHandWinCounter = [recoverSaveData.handWinCounter[0],recoverSaveData.handWinCounter[1],recoverSaveData.handWinCounter[2]];
+            tempHandWinCounter = [recoverSaveData.handWinCounter[0], recoverSaveData.handWinCounter[1], recoverSaveData.handWinCounter[2]];
             console.log(tempHandWinCounter);
             let gamesplayed = totalGameWinCounter[0] + totalGameWinCounter[1];
             if (gamesplayed === 0) {
@@ -662,7 +681,7 @@ function recoverSavedGame() {
     }
     if (localStorage.length == 0) {
         notificationArea.innerHTML = `Welcome ${playerName}. This is your first time playing, have fun!`;
-            totalGameWinCounter = [0, 0];
+        totalGameWinCounter = [0, 0];
     }
 }
 
