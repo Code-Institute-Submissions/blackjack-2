@@ -262,3 +262,17 @@ font-size: 1rem;
         color: red;
     }
 }
+
+@media only screen and (min-width: 1000px) and (max-width: 1920px) and (max-height: 1080px) {
+    .card-display {
+        height: 20vh;
+        padding: 0;
+        margin: 0;
+    }
+
+    .human-cards img, .computer-cards img {
+        height: 100%;
+    }
+
+
+}
