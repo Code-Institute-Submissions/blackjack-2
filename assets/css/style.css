@@ -127,7 +127,7 @@ img {
     color: white;
     text-align: center;
     margin: 10px;
-    text-decoration: ;
+    text-decoration: underline;
 }
 
 .play-game-button {
@@ -254,5 +254,5 @@ font-size: 1rem;
         font-family: 'Lorinda Solid', sans-serif;
         font-size: 4rem;
         color: red;
-
+    }
 }
