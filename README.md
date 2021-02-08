@@ -204,6 +204,14 @@ The project was also tested on multiple devices both physical and virtual (using
 Most device testing was done on virtual devices within Microsof Edge and Google Chrome. There were no issues with any game functionality regardless of device. 
 The project was also tested on a Samsung Galaxy S10e as well as a OnePlus Nord mobile phone. The game worked flawlessly. 
 Also, the game was tested on a Samsung Galaxy Tab and worked as expected. 
+
+## Jasmine Testing
+Jasmine was used to test two functions dealing with score calculation.
+The functions are "calculateScore()" and "isBlackJack()". 
+
+![Jasmine Testing Results](assets/img/readme/jasmine_testing_results.jpg)
+
+
 ## Validation
 ### HTML Testing
 HTML code was successfully validated using the [W3C Markup Validation Service](https://validator.w3.org/). The testing returned errors that a "article" or "section" tags were not correct tags to use so they were either removed or replaced with "div" tags. Once this was corrected, the validation passed successfully.

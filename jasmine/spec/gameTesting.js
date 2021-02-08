@@ -25,3 +25,14 @@ describe("Card score calculator", function() {
         });
     });
 });
+describe("Calculate blackjack", function() {
+    it('should return blackjack when a 10 card and ace are the first cards', () => {
+        expect(isBlackJack([{value: 1}, {value:10}])).toBe(true);
+    });
+    it('should not return a blackjack if it is an ace and a non 10 card', () => {
+        expect(isBlackJack([{value: 1}, {value: 3}])).toBe(false);
+    });
+    it('should not return blackjack if it is a 10 card and a non ace card', () => {
+        expect(isBlackJack([{value:4}, {value:10}])).toBe(false);
+    });
+})
